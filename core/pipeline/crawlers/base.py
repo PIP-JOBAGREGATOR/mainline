@@ -15,17 +15,32 @@ class CrawlPipelineStep(PipelineStep):
         self.jobs_url = None
 
     def read_page(self, url):
-        response = urllib2.urlopen(url)
-        html = response.read()
-        return html
+        tries = 0
+        while tries < 5:
+            try:
+                response = urllib2.urlopen(url)
+                html = response.read()
+                return html
+            except:
+                tries += 1
+        return ""
 
     def get_pages_count(self, html):
         return NotImplementedError()
 
     def read(self):
         jobs_page = self.read_page(self.jobs_url)
-        self.get_pages_count(jobs_page)
-        return [jobs_page]
+        pages = [jobs_page]
+        num_pages = self.get_pages_count(jobs_page)
+       
+        # For testing
+        num_pages = min(num_pages, 3)
+
+        for i in xrange(2, num_pages):
+            print "Reading page %d " % i
+            url = self.get_page_url(i)
+            pages.append(self.read_page(url))
+        return pages
 
     def write(self, items):
         self.writer = CrawlerWriter('localhost', 'root', 'root', self.site, 'job_agregator') 
