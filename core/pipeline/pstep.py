@@ -9,13 +9,15 @@ class PipelineStep():
         raise NotImplementedError()
 
     def run(self):
-        self.read()
-        for item in self.items:
+        items = self.read()
+        items_to_write = []
+        for item in items:
             try:
-                processed_item = self.process_items(item)
-                self.write(processed_item)
+                processed_items = self.process_item(item)
+                items_to_write.extend(processed_items)
             except:
                 self.log_fail(item)
+        self.write(items_to_write)
 
     def log_fail(self, item):
         #TODO: log item
