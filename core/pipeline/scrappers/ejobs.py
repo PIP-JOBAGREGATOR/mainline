@@ -11,7 +11,7 @@ class EjobsScrapper(ScrapperBase):
         ScrapperBase.__init__(self,timestamp)
 	pass
 
-    def process_item(self,page):
+    def process_item(self,page,id_url):
         content = page[0]
         html_content = BeautifulSoup(content)
 	header = html_content.findAll(text=True)
@@ -24,7 +24,7 @@ class EjobsScrapper(ScrapperBase):
 	job.city = ""
 	job.description = ""
 	job.job_type = ""
-
+	job.id_url = id_url
 	if "Compania:&nbsp; " in header:
 		index = header.index("Compania:&nbsp; ")
 		job.employer = header[index+1]

@@ -11,7 +11,7 @@ class BestjobsScrapper(ScrapperBase):
         ScrapperBase.__init__(self,timestamp)
 	pass
 
-    def process_item(self,page):
+    def process_item(self,page,id_url):
 	
         content = page[0]
         html_content = BeautifulSoup(content)
@@ -37,5 +37,5 @@ class BestjobsScrapper(ScrapperBase):
 		index = header.index('Oras(e)')
 		job.city = header[index + 1]
 		job.city = filter(lambda it : it != '\t' and it != '\n',job.city)
-	
+	job.id_url = id_url
         return job	
