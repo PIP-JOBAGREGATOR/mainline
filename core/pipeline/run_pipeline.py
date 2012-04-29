@@ -4,11 +4,9 @@ import time
 from crawlers.bestjobs import BestjobsCrawler
 from crawlers.ejobs import EjobsCrawler
 from scrappers.bestjobs import BestjobsScrapper
-<<<<<<< HEAD
 from scrappers.ejobs import EjobsScrapper
-=======
+
 from indexer import IndexStep
->>>>>>> a243d11532217f3ab7fa03e0f76910337c9ca34d
 
 def main():
     start_time = time.time()
@@ -18,14 +16,18 @@ def main():
 
     scrappers = []
     scrappers.append(BestjobsScrapper(start_time))
+    scrappers.append(EjobsScrapper(start_time))
 
     indexer = IndexStep() 
 
     while True:
+        print "Running crawlers"
 #        for crawler in crawlers:
 #            crawler.run()
-#        for scrapper in scrappers:
+        print "Running scrappers"
+#        for scrapper in scrappers:            
 #            scrapper.run()
+        print "Indexing... God Speed"
         indexer.run()
         break
 

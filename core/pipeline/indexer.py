@@ -1,11 +1,11 @@
 import MySQLdb
+import simplejson as json
 
 from pstep import PipelineStep
 from lucene import *
 
-INDEX_PATH = 'job-index'
 
-PARAMS = ["title", "description", "salary", "company"]
+INDEX_PATH = 'job-index'
 
 class IndexStep(PipelineStep): 
     def __init__(self):
@@ -22,20 +22,16 @@ class IndexStep(PipelineStep):
     def read(self):
         conn = MySQLdb.connect("localhost", "root", "root", "job_agregator")
         cursor = conn.cursor();
-        cursor.execute("SELECT %s FROM jobs" % ','.join(PARAMS))
+        cursor.execute("SELECT job_info FROM jobs")
 
-        rows = []
-        for row in cursor.fetchall():
-            column_index = 0
-            row_dict = {}
-            for param in PARAMS:
-                row_dict[param] = row[column_index]
-                column_index += 1
-            rows.append(row_dict)
-        return rows
+        jobs = []
+        for row in cursor.fetchall():    
+            job_dict = json.loads(row[0]) 
+            jobs.append(job_dict)
+        return jobs
 
     def process_item(self, job):
-        print job
+        print job["url"]
         doc = Document()
         for key, value in job.iteritems():
             doc.add(Field(key, str(value), Field.Store.YES, Field.Index.ANALYZED))

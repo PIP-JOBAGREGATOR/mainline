@@ -21,7 +21,6 @@ class PipelineStep():
                 processed_items = self.process_item(item)
                 items_to_write.extend(processed_items)
             except:
-                raise
                 self.log_fail(item)
         print len(items_to_write)
         self.write(items_to_write)

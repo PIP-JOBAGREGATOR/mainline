@@ -1,29 +1,33 @@
 import MySQLdb
-
+import simplejson as json
 
 class DatabaseHandler:
     def __init__(self):
         self.conn = MySQLdb.connect("localhost","root","root","job_agregator")
-	
-    def Read(self,timestamp,url):
+
+    def get_json(self, job):
+        job_dict = job.__dict__
+        return json.dumps(job_dict)
+
+    def Read(self, timestamp, site):
         rows = []
         cursor = self.conn.cursor()
-        data = cursor.execute("select html from jobs_html where date >= %s", [timestamp])
-	for html_name in cursor.fetchall():
-            rows.append(html_name)
-	cursor2 = self.conn.cursor()
-	urls = cursor2.execute("select url from jobs_html where date >= %s",[timestamp])
-	for u in urls:
-		temp_string = ""
-		if u.find("bestjobs") == True:
-			temp_string = "b"
-		else :
-			temp_string = "e"
-		temp = u.split("/")
-		url.append(temp_string + temp[len(temp) - 2])
+        cursor.execute("SELECT html, url, site from jobs_html WHERE site = %s", [site])
+    	for row in cursor.fetchall():
+            rows.append({"html": row[0], "url": row[1]})
         return rows
 
-    def Write(self,title,description,salary,company):
-        params = [title, description, salary, company]
+    def Write(self, job):
+        job_json = self.get_json(job)
+        hashString = job.hash
+
+        job_id = job.id_url
+
         cursor = self.conn.cursor()
-        cursor.execute("insert into jobs(title,description,salary,company) values(%s, %s, %s, %s)", params)
+        cursor.execute("select COUNT(*) from jobs where job_id = %s", job_id)       
+        for row in cursor.fetchall():
+            size = row[0]
+        if size == 0:
+            cursor.execute("insert into jobs(job_id, job_info, hash) values(%s, %s, %s)", [job_id, job_json, hashString])
+        else:
+            cursor.execute("UPDATE jobs SET job_info = %s, hash = %s WHERE job_id = %s", [job_json, hashString, job_id])

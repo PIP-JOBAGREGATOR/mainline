@@ -8,4 +8,4 @@ manager = IndexManager()
 results = manager.query(query_string, {"company": "RED"})
 
 for result in results:
-    print result["title"], result["score"]
+    print result["title"], result["url"], result["score"]
