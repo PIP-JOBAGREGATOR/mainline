@@ -14,7 +14,6 @@ class PipelineStep():
         cnt = 0
         for item in items:
             try:
-                print "Processing page %d" % cnt
                 cnt += 1
                 processed_items = self.process_item(item)
                 items_to_write.extend(processed_items)
