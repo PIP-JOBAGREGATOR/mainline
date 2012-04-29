@@ -82,6 +82,14 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		} else {
 			container.innerText = "Cauta ceva nu sta si te uita ca vitelu la poarta noua";
 		}
+		
+		$(container).append($("<div>").css({
+			"width": "50px", 
+			"height": "50px", 
+			"position":"absolute", 
+			"bottom": "0px", 
+			"right": "0px", 
+			"background-image": "url(images/corner.png)"}));
 
 		return {
 			update : function(data) {

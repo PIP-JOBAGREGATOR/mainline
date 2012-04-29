@@ -13,7 +13,6 @@
 		<script type="text/javascript" src="app/PagedContainer.js"></script>
 		
 		<script type="text/javascript" src="app/layout/Logo.js"></script>
-		<script type="text/javascript" src="app/layout/Menu.js"></script>
 		<script type="text/javascript" src="app/layout/SearchInput.js"></script>
 		<script type="text/javascript" src="app/layout/LivePreview.js"></script>
 		<script type="text/javascript" src="app/layout/SearchPage.js"></script>
