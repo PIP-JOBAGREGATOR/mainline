@@ -7,7 +7,7 @@ class DatabaseHandler:
 
     def GetJson(self,job):
         dictionar = job.__dict
-        dummy = dictionar.pop("id")
+        dummy = dictionar.pop("id_url")
         dummy = dictionar.pop("hash")
         retval = json.dumps(dictionar)
         return retval
@@ -23,7 +23,7 @@ class DatabaseHandler:
     def Write(self,job):
         job_json = self.GetJson(job)
         hashString = job.hash
-        job_id = job.id
+        job_id = job.id_url
         cursor = self.conn.cursor()
         data = cursor.execute("select COUNT(*) from jobs where jobid = %s",job_id)
         size = 0;
