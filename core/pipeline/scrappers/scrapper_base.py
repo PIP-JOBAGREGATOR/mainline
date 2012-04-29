@@ -24,7 +24,8 @@ class ScrapperBase:
         self.database.Write(job.job_title,job.description,job.salary,job.employer)
 
     def read(self):
-        rows = self.database.Read(self.timestamp);
+	url = []
+        rows = self.database.Read(self.timestamp,url);
         return rows
 
     def process_item(self,page):

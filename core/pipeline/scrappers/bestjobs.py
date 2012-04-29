@@ -9,8 +9,10 @@ class Object:
 class BestjobsScrapper(ScrapperBase):
     def __init__(self,timestamp):
         ScrapperBase.__init__(self,timestamp)
+	pass
 
     def process_item(self,page):
+	
         content = page[0]
         html_content = BeautifulSoup(content)
         job_title_tag = html_content.findAll("h1")[0]
@@ -19,5 +21,21 @@ class BestjobsScrapper(ScrapperBase):
         job.job_title = job_title_tag.text
         job.employer = job_title_tag.parent.findAll("a")[0].findAll(text=True)
         job.description = html_content.findAll("table")[6].text
-        job.salary = 0 
+        job.salary = 0
+	header = html_content.findAll("table")[2].findAll(text = True)
+	header = filter( lambda  it: it != '\n' and it != ' ' and it != '&nbsp;',header)
+	job.level=""
+	job.job__type=""
+	job.city=""
+	if 'Nivel cariera' in header:
+		index = header.index('Nivel cariera') 
+		job.level = header[index + 1]
+	if 'Tipul ofertei' in header:
+		index = header.index('Tipul ofertei')
+		job.job_type = header[index + 1]
+	if 'Oras(e)' in header:
+		index = header.index('Oras(e)')
+		job.city = header[index + 1]
+		job.city = filter(lambda it : it != '\t' and it != '\n',job.city)
+	
         return job	

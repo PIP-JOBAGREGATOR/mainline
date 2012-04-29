@@ -2,12 +2,15 @@
 import time
 
 from crawlers.bestjobs import BestjobsCrawler
+from crawlers.ejobs import EjobsCrawler
 from scrappers.bestjobs import BestjobsScrapper
+from scrappers.ejobs import EjobsScrapper
 
 def main():
     start_time = time.time()
     crawlers = []
     crawlers.append(BestjobsCrawler())
+    crawlers.append(EjobsCrawler())
 
     scrappers = []
     scrappers.append(BestjobsScrapper(start_time))

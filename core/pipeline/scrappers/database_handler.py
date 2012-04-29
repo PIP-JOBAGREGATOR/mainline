@@ -3,7 +3,7 @@ import MySQLdb
 
 class DatabaseHandler:
     def __init__(self):
-        self.conn = MySQLdb.connect("localhost","root","root","job_agregator")
+        self.conn = MySQLdb.connect("localhost","panda","","job_agregator")
 	
     def Read(self,timestamp):
         rows = []
