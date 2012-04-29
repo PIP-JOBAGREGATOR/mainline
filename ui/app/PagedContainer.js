@@ -19,6 +19,7 @@ var PagedContainer = function(container) {
 		"height": "0px",
 		"position": "relative",
 		"-webkit-transition": "top 0.5s",
+		"-moz-transition": "top 0.5s",
 		"float": "left"
 	});
 	
