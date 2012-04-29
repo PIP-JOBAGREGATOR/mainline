@@ -10,6 +10,8 @@ from index_manager import IndexManager
 from django.http import HttpResponse
 
 def search(request):
+    response = HttpResponse()
+
     if request.method == 'POST':
         content = request.POST.get('content')
         data = json.loads(content)
@@ -20,10 +22,22 @@ def search(request):
         cv = data["cv"]
 
         index = IndexManager()
-        results = index.simple_query(queryString)
-        response = HttpResponse()
+
+        temp = index.simple_query(queryString)
+        results = '['
+        for job in temp:
+            title = job['title']
+            description = job['description']
+            link = job['link']
+
+            duplicat = '{"duplicate":[{"titlu":"%s","descriere":"%s","link":"%s"}]}' % (title, description, link)
+            temp = '%s,%s' % (temp, duplicat)
+        results = '%s]' % (results,)
+
         response.content = json.dumps(results)
         response.status_code = 200
+    else:
+        response.status_code = 400
 
-        return response;
+    return response;
 
