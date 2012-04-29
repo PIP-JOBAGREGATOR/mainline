@@ -1,6 +1,5 @@
 from BeautifulSoup import BeautifulSoup
 import urllib
-import md5
 from database_handler import DatabaseHandler
 
 class Object:
@@ -9,33 +8,27 @@ class Object:
 class ScrapperBase:
     def __init__(self,timestamp):
         self.database = DatabaseHandler()
-        self.timestamp = timestamp
-
-    def processHash(self,processed):
-        string = ''
-        string += self.job.job_title
-        string += self.job.employer
-        hasher = md5.new()
-        hasher.update(string)
-        hashed = hasher.hexdigest()        
-        processed.hash = hashed
+        self.timestamp = timestamp 
 
     def run(self):
-        items = self.read()
+	url=[]
+        items = self.read(url)
         cnt = 0
+	i = 0
         for item in items:
             try:
-                processed_item = self.process_item(item)
-                self.processHash(processed_item)
+                processed_item = self.process_item(item , url[i])
+		++i
                 self.write(processed_item)
             except:
                 pass
 
     def write(self,job):
-        self.database.Write(job)
+        self.database.Write(job.job_title,job.description,job.salary,job.employer)
 
-    def read(self):
-        rows = self.database.Read(self.timestamp);
+    def read(self,url):
+        rows = self.database.Read(self.timestamp,url)
+	
         return rows
 
     def process_item(self,page):
