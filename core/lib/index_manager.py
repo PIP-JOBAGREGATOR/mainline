@@ -1,4 +1,6 @@
 import os
+import MySQLdb
+import simplejson as json
 
 from lucene import *
 
@@ -61,7 +63,22 @@ class IndexManager():
         self.reader.close()
         self.store.close()
 
+    def get_last_jobs(self, count=20, offset=0):
+        conn = MySQLdb.connect("localhost","root","root","job_agregator")
+
+        query = "SELECT job_info FROM jobs ORDER BY `last_update` LIMIT %s, %s"
+        cursor = conn.cursor()
+        cursor.execute(query, [offset, count])
+        results = []
+        for row in cursor.fetchall():
+            job_info = json.loads(row[0])
+            results.append(job_info)
+        return results
+
     def query(self, query_string, additional_fields={}):
+        if query_string.strip() == "":
+            return self.get_last_jobs()
+            
         query = self.build_query(query_string, additional_fields)
         topDocs = self.searcher.search(query, 20)
         return self.scoredocs_to_jobs(topDocs.scoreDocs)
