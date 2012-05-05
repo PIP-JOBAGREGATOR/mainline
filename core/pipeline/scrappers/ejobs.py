@@ -25,6 +25,10 @@ class EjobsScrapper(ScrapperBase):
 	job.description = ""
 	job.job_type = ""
 	job.id_url = id_url
+	job.department = ""
+	if "Departament:&nbsp; " in header:
+		index = header.index("Departament:&nbsp; ")
+		job.department = header[index+1]
 	if "Compania:&nbsp; " in header:
 		index = header.index("Compania:&nbsp; ")
 		job.employer = header[index+1]
@@ -43,14 +47,21 @@ class EjobsScrapper(ScrapperBase):
 	temp1 = []
 	if "CANDIDATUL IDEAL:" in header:
 		index = header.index("CANDIDATUL IDEAL:")
-		temp1.append( str(header[index].parent.parent.parent))
+		temp1.append( str(''.join(header[index].parent.parent.parent.findAll(text=True))))
 	if "RESPONSABILITATI / BENEFICII:" in header:
 		index = header.index("RESPONSABILITATI / BENEFICII:")
-		temp1.append( str(header[index].parent.parent.parent))
+		temp1.append( str(''.join(header[index].parent.parent.parent.findAll(text=True))))
 	if "DESCRIEREA COMPANIEI:" in header:
 		index = header.index("DESCRIEREA COMPANIEI:")
-		temp1.append( str(header[index].parent.parent.parent))
+		temp1.append( str(''.join(header[index].parent.parent.parent.findAll(text=True))))
 	job.description = ''.join(temp1)
-        job.salary = 0	
+
+        check_salary = re.findall("[0-9]+ euro",header)
+        check_salary.join(re.findall("[0-9]+ ron",header))
+        check_salary.join(re.findall("[0-9]+ dol",header))
+        check_salary.join(re.findall("[0-9]+ $",header))
+        check_salary.join(re.findall("[0-9]+ €",header))
+        if check_salary.size() > 0 :
+                job.salary = check_salary[0]
 
         return job	
