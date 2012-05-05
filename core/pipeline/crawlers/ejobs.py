@@ -8,7 +8,7 @@ class EjobsCrawler(CrawlPipelineStep):
         self.site = 'ejobs'
 
     def get_pages_count(self, html):
-        return 7
+        return 700
 
     def get_page_url(self, page_num):
         return self.jobs_url + "&page=" + str(page_num)

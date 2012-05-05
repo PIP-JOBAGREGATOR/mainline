@@ -1,3 +1,5 @@
+#/usr/bin/env python
+
 from core.lib.index_manager import IndexManager
 import sys
 from lucene import *

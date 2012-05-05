@@ -34,9 +34,9 @@ class CrawlPipelineStep(PipelineStep):
         num_pages = self.get_pages_count(jobs_page)
        
         # For testing
-        num_pages = min(num_pages, 3)
+        num_pages = min(num_pages, 20)
 
-        for i in xrange(2, num_pages):
+        for i in xrange(2, num_pages + 1):
             print "Reading page %d " % i
             url = self.get_page_url(i)
             pages.append(self.read_page(url))
