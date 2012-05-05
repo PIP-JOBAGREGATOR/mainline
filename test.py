@@ -1,18 +1,13 @@
 from core.lib.index_manager import IndexManager
 import sys
+from lucene import *
 
-query_string = "videochat"
+query_string = "software engineer"
 
-manager = IndexManager()
-results = manager.query(query_string, {"company": "RED"})
-
-for result in results:
-    print result.keys()
-    print result["title"], result["url"], result["score"]
-
+initVM()
 manager = IndexManager()
 results = manager.query(query_string)
 
 for result in results:
     print result.keys()
-    print result["title"], result["url"], result["score"]
+    print result["title"], result["id_url"], result["score"]

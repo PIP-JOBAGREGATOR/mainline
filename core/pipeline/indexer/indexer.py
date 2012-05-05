@@ -1,11 +1,21 @@
 import MySQLdb
 import simplejson as json
+import sys
+import os
+from copy import copy
 
-from pstep import PipelineStep
 from lucene import *
 
 
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+from pstep import PipelineStep
+
 INDEX_PATH = 'job-index'
+
+BOOSTED_FIELDS = {"title": 10.0, "description": 0.2}
+DEFAULT_BOOST = 3.0
 
 class IndexStep(PipelineStep): 
     def __init__(self):
@@ -17,7 +27,7 @@ class IndexStep(PipelineStep):
         self.analyzer = StandardAnalyzer(Version.LUCENE_CURRENT)
 
         # Init writer
-        self.writer = IndexWriter(self.store, self.analyzer, True, IndexWriter.MaxFieldLength.LIMITED) 
+        self.writer = IndexWriter(self.store, self.analyzer, True, IndexWriter.MaxFieldLength.UNLIMITED) 
 
     def read(self):
         conn = MySQLdb.connect("localhost", "root", "root", "job_agregator")
@@ -33,8 +43,16 @@ class IndexStep(PipelineStep):
     def process_item(self, job):
         print job["url"]
         doc = Document()
-        for key, value in job.iteritems():
-            doc.add(Field(key, str(value), Field.Store.YES, Field.Index.ANALYZED))
+        fields = {}
+        for key, value in job.iteritems():      
+            field = Field(key, str(value), Field.Store.YES, Field.Index.ANALYZED)
+            if key in BOOSTED_FIELDS:
+                print key
+                field.setBoost(BOOSTED_FIELDS[key])
+            else:
+                field.setBoost(DEFAULT_BOOST)
+            doc.add(field)
+
         return [doc]
 
     def close(self):            

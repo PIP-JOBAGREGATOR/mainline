@@ -57,7 +57,6 @@ class IndexManager():
         self.reader.close()
         self.store.close()
 
-
     def query(self, query_string, additional_fields={}):
         query = self.build_query(query_string, additional_fields)
         topDocs = self.searcher.search(query, 20)
