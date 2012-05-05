@@ -6,7 +6,7 @@ INDEX_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.par
 
 class IndexManager():
     def __init__(self):
-        initVM()
+        getVMEnv().attachCurrentThread()
         self.store = SimpleFSDirectory(File(INDEX_PATH))
         self.analyzer = StandardAnalyzer(Version.LUCENE_CURRENT)
         self.searcher = IndexSearcher(self.store, True)
@@ -51,6 +51,12 @@ class IndexManager():
                                             flags,
                                             self.analyzer)
         return query
+
+    def close(self):
+        self.searcher.close()
+        self.reader.close()
+        self.store.close()
+
 
     def query(self, query_string, additional_fields={}):
         query = self.build_query(query_string, additional_fields)

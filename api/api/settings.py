@@ -152,3 +152,7 @@ LOGGING = {
         },
     }
 }
+
+# Start lucene jvm
+from lucene import *
+initVM() 
