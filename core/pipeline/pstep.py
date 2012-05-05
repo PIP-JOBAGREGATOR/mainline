@@ -24,7 +24,6 @@ class PipelineStep():
                 self.log_fail(item)
         print len(items_to_write)
         self.write(items_to_write)
-        self.close()
 
     def log_fail(self, item):
         #TODO: log item

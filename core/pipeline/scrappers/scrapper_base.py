@@ -2,12 +2,14 @@ from BeautifulSoup import BeautifulSoup
 import urllib
 import md5
 from database_handler import DatabaseHandler
+import time
+import random
 
 class Object:
 	pass
 
 class ScrapperBase:
-    def __init__(self,timestamp):
+    def __init__(self, timestamp):
         self.database = DatabaseHandler()
         self.timestamp = timestamp 
 
@@ -31,6 +33,7 @@ class ScrapperBase:
                 self.write(processed_item)
             except Exception as strerror:
                 pass
+        self.timestamp = int(time.time())
 
     def write(self,job):
         self.database.Write(job)

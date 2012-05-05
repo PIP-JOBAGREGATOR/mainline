@@ -3,6 +3,8 @@ import urllib
 from database_handler import DatabaseHandler
 from scrapper_base import ScrapperBase
 
+from hashlib import md5
+
 class Object:
 	pass
 
@@ -11,8 +13,10 @@ class BestjobsScrapper(ScrapperBase):
         ScrapperBase.__init__(self,timestamp)
         self.site = 'bestjobs'
 
-    def process_item(self, page):
-	
+    def _compute_hash(self, string):
+        return md5(string).hexdigest()
+
+    def process_item(self, page):	
         content = page["html"]
         url = page["url"]
 
@@ -42,4 +46,5 @@ class BestjobsScrapper(ScrapperBase):
             job.city = filter(lambda it : it != '\t' and it != '\n',job.city)
 
         job.id_url = self.site[0] + url.split('/')[-2] + '/' + url.split('/')[-1]
+        job.id_url = self._compute_hash(job.id_url)
         return job	

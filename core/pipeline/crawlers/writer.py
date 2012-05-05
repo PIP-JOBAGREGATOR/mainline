@@ -19,9 +19,12 @@ class CrawlerWriter:
         cursor.execute(query, url)
         cnt = cursor.fetchone()[0]
         if cnt > 0:
-            return False
+            query = "UPDATE " + self.table + " SET html = %s, date = %s WHERE url = %s"
+            cursor = self.conn.cursor()
+            cursor.execute(query, [html, time.time(), url])
+            return True
 
         cursor = self.conn.cursor()
-        query = "INSERT INTO " + self.table + " (`html`, `site`, `url`) VALUES (%s, %s, %s)"
-        cursor.execute(query, [html, self.site, url])
+        query = "INSERT INTO " + self.table + " (`html`, `site`, `date`, `url`) VALUES (%s, %s, %s, %s)"
+        cursor.execute(query, [html, self.site, time.time(), url])
         return True

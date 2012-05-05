@@ -43,7 +43,7 @@ class IndexManager():
             field_values.append(value)
 
         flags = [must, should]
-        flags.extend([should] * len(additional_fields))
+        flags.extend([must] * len(additional_fields))
 
         query = MultiFieldQueryParser.parse(Version.LUCENE_CURRENT,
                                             field_values,
