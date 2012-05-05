@@ -6,7 +6,11 @@ INDEX_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.par
 
 class IndexManager():
     def __init__(self):
-        getVMEnv().attachCurrentThread()
+        try:
+            getVMEnv().attachCurrentThread()
+        except:
+            initVM()
+
         self.store = SimpleFSDirectory(File(INDEX_PATH))
         self.analyzer = StandardAnalyzer(Version.LUCENE_CURRENT)
         self.searcher = IndexSearcher(self.store, True)
