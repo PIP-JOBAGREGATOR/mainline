@@ -30,6 +30,7 @@ class ScrapperBase:
             try:
                 processed_item = self.process_item(item)
                 self.process_hash(processed_item)
+                print processed_item.salary
                 self.write(processed_item)
             except Exception as strerror:
                 pass

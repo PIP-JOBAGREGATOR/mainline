@@ -9,4 +9,4 @@ manager = IndexManager()
 results = manager.query(query_string)
 
 for result in results:
-    print result["title"], result["id_url"], result["score"]
+    print result["title"], result["id_url"], result["salary"], result["score"]
