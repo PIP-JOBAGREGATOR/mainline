@@ -18,6 +18,7 @@ class EjobsScrapper(ScrapperBase):
         header = filter(lambda it : it != '\n' and it != '&nbsp' and it != ' ', header)
 	job = Object()
 
+	job.salary = ""
 	job.employer = ""
 	job.title = ""
 	job.level = ""

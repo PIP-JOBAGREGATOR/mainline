@@ -27,6 +27,7 @@ class BestjobsScrapper(ScrapperBase):
         job.job_type = ""
         job.id_url = id_url
         job.department = ""
+	job.salary = ""
 
         job.job_title = job_title_tag.text
         job.employer = job_title_tag.parent.findAll("a")[0].findAll(text=True)
