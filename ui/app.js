@@ -12,7 +12,7 @@ var app = (function() {
 	var bootstrap = function() {
 		Environment.collectInfo();
 		LayoutManager.clean();
-		pageAPI = LayoutManager.buildSearchPage();
+		pageAPI = LayoutManager.buildPrefPage();
 		
 		var buildQueryJSON = function(data, offset) {
 			return JSON.stringify({
