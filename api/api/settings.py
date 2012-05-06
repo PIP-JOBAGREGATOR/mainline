@@ -3,6 +3,9 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -11,8 +14,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -154,5 +157,5 @@ LOGGING = {
 }
 
 # Start lucene jvm
-from lucene import *
-initVM() 
+#from lucene import *
+#initVM()
