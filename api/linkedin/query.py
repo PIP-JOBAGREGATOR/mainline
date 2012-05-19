@@ -34,6 +34,7 @@ def get_id(credentials):
     except:
         return None
 
+
 def get_cv(credentials):
     try:
         client = get_client(credentials)

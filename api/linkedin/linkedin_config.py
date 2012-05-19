@@ -12,7 +12,6 @@ PROFILE_FIELDS = [
     'im-accounts',
     'date-of-birth',
     'main_address',
-    'location',
     'headline',
     'industry',
     'interests',
@@ -23,6 +22,5 @@ PROFILE_FIELDS = [
     'skills',
     'certifications',
     'educations',
-    'courses',
-    'volunteer'
+    'courses'
 ]

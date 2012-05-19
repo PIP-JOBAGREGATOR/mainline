@@ -86,13 +86,8 @@ def oauth(request):
     return response
 
 
-#update resume from linkedin
-def cv_refresh(request):
+def update_cv(pers_id, cv_json):
     response = HttpResponse()
-
-    oauth = request.session['token']
-    pers_id = get_id(oauth)
-    cv_json =  get_cv(oauth)
 
     if pers_id is not None and cv_json is not None:
         conn = MySQLdb.connect("localhost", "root", "root", "job_agregator")
@@ -120,6 +115,29 @@ def cv_refresh(request):
         response.status_code = 200
     else:
         response.content = 'refresh resume failed'
+        response.status_code = 404
+
+    return response
+
+
+def cv_refresh(request):
+    oauth = request.session['token']
+    pers_id = get_id(oauth)
+    cv_json = get_cv(oauth)
+
+    return update_cv(pers_id, cv_json)
+
+
+def cv_set(request):
+    response = HttpResponse()
+
+    if request.method == 'POST':
+        oauth = request.session['token']
+        pers_id = get_id(oauth)
+        cv_json = request.POST.get('content')
+        return update_cv(pers_id, cv_json)
+    else:
+        response.content = 'bad request ... use POST'
         response.status_code = 404
 
     return response
