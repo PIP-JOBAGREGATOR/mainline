@@ -3,11 +3,12 @@ import os.path
 import sys
 import urllib
 import MySQLdb
+import re
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'core', 'lib')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'linkedin')))
 
-#from index_manager import IndexManager
+from index_manager import IndexManager
 from django.http import HttpResponse
 from linkedin_config import *
 from cookie import *
@@ -41,6 +42,11 @@ def parse_cv(cv):
     jobs.extend(get_education_jobs(cv))
     return jobs
 
+def process_description(description):
+    description = re.sub(r'<[^>]*?>', '', description)
+    description = re.sub(r'&nbsp;', '', description)
+    return description[:200]
+
 def search(request):
     try:
         response = HttpResponse()
@@ -56,14 +62,15 @@ def search(request):
             queryString += " " + ' '.join(parse_cv(cv))    
 
             index = IndexManager()
-
             temp = index.query(queryString)
+
             results = []
             for job in temp:
                 result = {}
                 result["titlu"] = job['title']
-                result["descriere"] = job['description'][:200]
+                result["descriere"] = process_description(job["description"])
                 result["link"] = job['url']
+                print result
                 results.append(result)      
 
             response.content = json.dumps(results)
