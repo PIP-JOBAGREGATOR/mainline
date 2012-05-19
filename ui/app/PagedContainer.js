@@ -3,19 +3,17 @@
 var PagedContainer = function(container) {
 	this.container = container;
 	this.container.pagedContainer = this;
-	
-	this.currentPage = 0;
-	this.height = parseInt($(container).css("height"));
-	this.width = parseInt($(container).css("width"));
 	this.pages = document.createElement("div");
 	this.scrollBar = document.createElement("div");
+	
+	this.updateParameters();
 	
 	// Prepare container
 	$(container).css("overflow", "hidden");
 	
 	// Prepare the pages holder
 	$(this.pages).css({
-		"width": (this.width - 15) + "px",
+		"width": (this.parameters.containerWidth - 15) + "px",
 		"height": "0px",
 		"position": "relative",
 		"-webkit-transition": "top 0.5s",
@@ -26,43 +24,54 @@ var PagedContainer = function(container) {
 	// Prepare the scrollBar bar
 	$(this.scrollBar).css({
 		"width": "15px",
-		"height": (this.height - 3) + "px",
-		"left": (this.width - 20) + "px"
+		"height": (this.parameters.containerHeight - 3) + "px",
+		"left": (this.parameters.containerWidth - 20) + "px"
 	});
 	$(this.scrollBar).slider({
 		"animate": true,
 		"orientation": "vertical",
 		"value": 95,
-		"change": function(event, ui) {
+		"stop": function(event, ui) {
 			var sliderElement = ui.handle.parentElement;
 			var containerElement = sliderElement.parentElement;
-			var numberOfPages = containerElement.pagedContainer.pages.childNodes.length;
-			var pageSize = 100 / numberOfPages;
+			var pagedContainer = containerElement.pagedContainer;
+			
 			var pageNumber = 1;
 			var value = ui.value;
 			
-			while (pageNumber*pageSize < value) {
+			while (pageNumber * pagedContainer.parameters.pageLength < value) {
 				++pageNumber;
 			}
+			pageNumber = pagedContainer.parameters.numberOfPages - pageNumber;
 			
-			pageNumber = numberOfPages - pageNumber;
+			//Tell the container that the current page must be changed
+			pagedContainer.goToPage(pageNumber);
 			
-			containerElement.pagedContainer.goToPage(pageNumber);
+			
 			
 			//TODO Make the ruller snap to the middle of the interval of the current page
-//			var newValue = Math.round(pageNumber * pageSize + pageSize / 2);
-//			if (Math.abs(ui.value - newValue) > 5)
-//				$(this.scrollBar).slider("option", "value", newValue + "px");
+			//var newValue = Math.round((pageNumber + 0.5) * pageSize);
+//			if (Math.abs(ui.value - newValue) > 5  || true) {
+//				sliderElement["onlyMoveTheSlider"] = true;
+//				window.console.log("about to set the value. Old was " + value + " New value is " + newValue);
+//				$(this.scrollBar).slider("value", newValue);
+//			}
 		},
 		"slide": function(event, ui) {
+			
 			var sliderElement = ui.handle.parentElement;
 			var containerElement = sliderElement.parentElement;
-			var numberOfPages = containerElement.pagedContainer.pages.childNodes.length;
-			var sizeOfAllPages = numberOfPages * containerElement.pagedContainer.height;
+			var pagedContainer = containerElement.pagedContainer;
 			var value = ui.value;
 			
-			$(containerElement.pagedContainer.pages).css("top", (-1*Math.round((100 - value)*sizeOfAllPages/100)) + "px");
+			var newCssTop = (-1*Math.round((100 - value)*pagedContainer.parameters.allPagesHeight/100));
 			
+			$(containerElement.pagedContainer.pages).css("top",newCssTop + "px");
+			
+			window.console.log("slide : " + ui.value);
+		},
+		"change": function(event,ui) {
+			window.console.log("change la : " + ui.value);
 		}
 	});
 	
@@ -79,15 +88,34 @@ var PagedContainer = function(container) {
 
 PagedContainer.prototype.constructor = PagedContainer;
 
-PagedContainer.prototype.goToPage = function(pageNumber) {
-	this.currentPage = pageNumber;
-	$(this.pages).css("top", (-1 * pageNumber * this.height) + "px");
-	
-	
-	//var numberOfPages = this.pages.childNodes.length;
-	//var pageInterval = 100 / numberOfPages;
+PagedContainer.prototype.updateParameters = function() {
+	if (this.hasOwnProperty("parameters") == false) {
+		// Must initiate the parameters object
+		var parameters = new Object();
+		parameters["currentPage"] = 0;
+		parameters["numberOfPages"] = 0;
+		parameters["containerHeight"] = parseInt($(this.container).css("height"));
+		parameters["containerWidth"] = parseInt($(this.container).css("width"));
+		this["parameters"] = parameters;
+		this.parameters["allPagesHeight"] = 0;
+	}
+	else {
+		this.parameters["numberOfPages"] = this.pages.childNodes.length;
+		this.parameters["pageLength"] = 100 / this.parameters["numberOfPages"];
+		
+		var middleOfPages = new Array();
+		for (var i = 0; i < this.parameters["numberOfPages"]; ++i) {
+			middleOfPages.push((i + 0.5) * this.parameters["pageLength"]);
+		}
+		
+		this.parameters["middleOfPages"] = middleOfPages;
+		this.parameters["allPagesHeight"] = this.parameters["containerHeight"]*this.parameters["numberOfPages"];
+	}
+};
 
-	//$(this.scrollBar).slider("option", "value", Math.round(pageNumber * pageInterval + pageInterval / 2) + "px");
+PagedContainer.prototype.goToPage = function(pageNumber) {
+	this.parameters["currentPage"] = pageNumber;
+	$(this.pages).css("top", (-1 * pageNumber * this.parameters.containerHeight) + "px");
 };
 
 PagedContainer.prototype.nextPage = function() {
@@ -111,14 +139,15 @@ PagedContainer.prototype.previousPage = function() {
 PagedContainer.prototype.addPage = function(page) {
 	var preparedPage = document.createElement("div");
 	$(preparedPage).css({
-		"width": this.width + "px",
-		"height": this.height + "px",
+		"width": this.parameters.containerWidth + "px",
+		"height": this.parameters.containerHeight + "px",
 		"overflow": "hidden"
 	});
 	
 	$(preparedPage).append(page);
-	$(this.pages).css("height", "+=" + this.height + "px");
+	$(this.pages).css("height", "+=" + this.parameters.containerHeight + "px");
 	$(this.pages).append(preparedPage);
 	
-	//this.goToPage(0);
+	this.updateParameters();
+	
 };
