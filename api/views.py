@@ -8,6 +8,7 @@ import re
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'core', 'lib')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'linkedin')))
 
+from job_map import COLLEGE_JOB
 from index_manager import IndexManager
 from django.http import HttpResponse
 from linkedin_config import *
