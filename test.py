@@ -10,5 +10,7 @@ initVM()
 manager = IndexManager()
 results = manager.query(query_string)
 
+ret = []
 for result in results:
-    print result["title"], result["id_url"], result["salary"], result["score"]
+    ret.append({"title": result["title"], "link": result["url"], "description": result["description"][:200]})
+print ret

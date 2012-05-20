@@ -5,7 +5,12 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^search/$', 'views.search'),
+    (r'linkedin.html$', 'views.linkedin'),
+    (r'^api/search/$', 'views.search'),
+    (r'^api/oauth/$', 'views.oauth'),
+    (r'^api/cv/refresh/$', 'views.cv_refresh'),
+    (r'^api/cv/get/$', 'views.cv_get'),
+    (r'^api/cv/set/$', 'views.cv_set'),
     # Examples:
     # url(r'^$', 'api.views.home', name='home'),
     # url(r'^api/', include('api.foo.urls')),

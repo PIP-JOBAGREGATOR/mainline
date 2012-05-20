@@ -81,6 +81,7 @@ var LayoutManager = LayoutManager || {};
 			"position" : "absolute",
 			"left" : "0px",
 			"top" : "0px",
+			"float" : "left",
 			"width" : Environment.getWindowWidth() + "px",
 			"height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight)  + "px"
 		});
@@ -88,6 +89,7 @@ var LayoutManager = LayoutManager || {};
 			"position" : "absolute",
 			"top" : "0px",
 			"visibility" : "hidden",
+			"float" : "right",
 			"width" : Environment.getWindowWidth() + "px",
 			"height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight) + "px",
 			"left" : Environment.getWindowWidth() + "px"

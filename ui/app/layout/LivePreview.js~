@@ -19,24 +19,22 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 				"height" : cellHeight,
 				"position" : "relative",
 				"left" : "10px",
-				"margin-top" : "5px",
-				"z-index" : "2"
+				"margin-top" : "5px"
 			});
 			$(cell).addClass("ui-widget-content ui-corner-all");
-			//$(cell).addClass("box effect3");
 
 			var header = document.createElement("div");
 			$(header).css({
 				"text-indent" : "15px"
 			}).addClass("ui-widget-header ui-corner-all");
-			header.innerText = cellData.titlu == "" ? "Fara titlu" : cellData.titlu;
+			header.innerText = cellData.titlu;
 
 			var descriere = document.createElement("div");
-			descriere.innerText = "Descriere job : " + cellData.descriere + " ...";
+			descriere.innerText = "Descriere job : " + cellData.descriere;
 
 			var link = document.createElement("a");
 			link.innerText = cellData.link;
-			$(link).attr({"href": cellData.link, "target": "_blank"});
+			link.setAttribute("href", cellData.link);
 
 			$(cell).append(header).append(descriere).append(link);
 
@@ -59,8 +57,8 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			var currentPage = null;
 			for ( var i = 0; i < searchResults.length; ++i) {
 				var currentResult = searchResults[i];
-				//var resultToDisplay = currentResult[0];
-				var cell = createCell(currentResult);
+				var resultToDisplay = currentResult[0];
+				var cell = createCell(resultToDisplay);
 
 				if (currentPage == null) {
 					currentPage = document.createElement("div");
@@ -84,6 +82,14 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		} else {
 			container.innerText = "Cauta ceva nu sta si te uita ca vitelu la poarta noua";
 		}
+		
+		$(container).append($("<div>").css({
+			"width": "50px", 
+			"height": "50px", 
+			"position":"absolute", 
+			"bottom": "0px", 
+			"right": "0px", 
+			"background-image": "url(images/corner.png)"}));
 
 		return {
 			update : function(data) {
