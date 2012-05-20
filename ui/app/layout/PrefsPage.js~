@@ -124,6 +124,7 @@ LayoutManager.PrefsPage = {};
 
 		
 		//adaugi tot ce ai facut in body
+		alert("panda");
 		$(container).append(mydiv);
 		
 		$(container).append(logo);

@@ -26,6 +26,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			"border-left": "solid 2px #333333",
 			"background-color": "#eeeeee"
 		});
+		alert(container["height"]);
 		var cvInputAPI = LayoutManager.SearchPage.buildSearchInput(cvInput);
 		var livePreviewAPI = LayoutManager.SearchPage.buildLivePreview(livePreview);
 

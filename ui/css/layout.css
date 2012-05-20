@@ -4,8 +4,8 @@
 	padding: 0px;
 }
 
-body {
-	/*font: 62.5% "Trebuchet MS", sans-serif;*/
+body { /*font: 62.5% "Trebuchet MS", sans-serif;*/
+	
 }
 
 .ui-combobox {
@@ -26,4 +26,39 @@ body {
 .ui-autocomplete-input {
 	margin: 0;
 	padding: 0.3em;
+}
+
+.effect3 {
+	width:70%;
+    height:150px;
+    background:#FFF;
+    margin:40px auto;
+	position: relative;
+}
+
+.effect3:before {
+	z-index: 0;
+	position: absolute;
+	content: "";
+	bottom: 15px;
+	left: 10px;
+	width: 50%;
+	top: 80%;
+	max-width: 300px;
+	background: #777;
+	-webkit-box-shadow: 0 15px 10px #777;
+	-moz-box-shadow: 0 15px 10px #777;
+	box-shadow: 0 15px 10px #777;
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+
+.box {
+	width: 70%;
+	height: 150px;
+	background: #FFF;
+	margin: 40px auto;
 }

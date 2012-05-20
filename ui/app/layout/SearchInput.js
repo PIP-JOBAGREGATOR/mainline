@@ -66,6 +66,37 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		var textFieldLabel = ["Nume", "Prenume", "Numar de telefon", "Adresa", "Sumar", "Interese", 
 		                      "Industrie","Titlu", "Limbi", "E-mail", "Publicatii", "Aptitudini", "Certificari", "Cursuri"];
 		
+		var buildInputWithTitle = function(title, tip, opt) {
+			var divCSS = {
+					"margin-bottom": "3px",
+				};
+			
+			var titleContainer = $("<div>").css({"height": "100%", "width":"30%"})
+				.addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only").append(title);
+			
+			var textField = document.createElement("input");
+			$(textField).attr("type", "text");
+			$(textField).css({
+				"width": "65%",
+				"border": "0px"
+			});
+			$(textField).addClass("ui-autocomplete-input ui-widget-content ui-corner-all").change(searchCallback);
+			
+			var theDiv = $("<div>").css(divCSS).addClass("ui-widget-content ui-corner-all");
+			if (tip) {
+				if (tip == "autocomplete") {
+					$(textField).autocomplete(opt);
+				}
+				else if (tip == "datepicker") {
+					$(textField).datepicker();
+				}
+			}
+			
+			theDiv.append(titleContainer).append(textField);
+			
+			return theDiv;
+		};
+		
 		var buildAndAddFields = function(label, container) {
 			if (textFieldLabel.indexOf(label) != -1) {
 				//Trebuie sa adaug numai un textfield
@@ -90,29 +121,18 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 				
 				var divCSS = {
 					"margin-bottom": "3px",
-				
 				};
 				
-				$(container).append($("<div>").css(divCSS).append(
-					$("<input>").attr({"type": "text", "value": "Titlu"})
-					.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").css({"width": "100%"}).change(searchCallback)
-				));
+
+				$(container).append($("<div>").css(divCSS).append(buildInputWithTitle("Titlu")));
 				
 				$(container).append($("<div>").css(divCSS).append(
-						$("<input>").attr({"type": "text", "value": "Data inceput"})
-						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").css({"width": "45%", "float": "left"}).datepicker()
+						buildInputWithTitle("Data inceput", "datepicker")
 				).append(
-						$("<input>").attr({"type": "text", "value": "Data sfarsit"})
-						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all")
-						.css({"width": "45%", "float": "right","position": "relative", "right": "-8px"}).datepicker()
-				).append(
-						$("<div>").css("clear", "both")
+						buildInputWithTitle("Data sfarsit", "datepicker")
 				));
 				
-				$(container).append($("<div>").css(divCSS).append(
-						$("<input>").attr({"type": "text", "value": "Nume Companie"})
-						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").css({"width": "100%"})
-				));
+				$(container).append($("<div>").css(divCSS).append(buildInputWithTitle("Nume companie")));
 				
 				$(container).append($("<div>").css(divCSS).append(
 						$("<textarea>").attr({"value": "Descriere"})
@@ -128,19 +148,13 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 					};
 					
 					$(container).append($("<div>").css(divCSS).append(
-						$("<input>").attr({"type": "text", "value": "Numele institutiei de invatamant"})
-						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").css({"width": "100%"})
-						.change(searchCallback)
+						buildInputWithTitle("Nume inst. de inv.")
 					));
 					
 					$(container).append($("<div>").css(divCSS).append(
-							$("<input>").attr({"type": "text", "value": "Domeniul de studiu"})
-							.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").css({"width": "45%", "float": "left"})
+							buildInputWithTitle("Dom. de studiu")
 					).append(
-							$("<input>").attr({"type": "text", "value": "Gradul"})
-							.addClass("ui-autocomplete-input ui-widget-content ui-corner-all")
-							.css({"width": "45%", "float": "right","position": "relative", "right": "-8px"})
-							.autocomplete({"source": ["Gimnaziu", "Liceu","Facultate", "Master", "Doctorat"], "minLength": 0})
+							buildInputWithTitle("Gradul", "autocomplete", {"source": ["Gimnaziu", "Liceu","Licenta", "Master", "Doctorat"], "minLength": 0})
 					).append(
 							$("<div>").css("clear", "both")
 					));
@@ -287,7 +301,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 								for (var i = 0; i < positionsArr.length; ++i) {
 									var p = positionsArr[i];
 									rez.push({
-										"title": p.childNodes[0].childNodes[0].value,
+										"title": p.childNodes[0].childNodes[0].childNodes[1].value,
 										"summary": p.childNodes[3].childNodes[0].value
 									});
 								}
@@ -301,7 +315,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 								for (var i = 0; i < educationsArr.length; ++i) {
 									var p = educationsArr[i];
 									rez.push({
-										"schoolName": p.childNodes[0].childNodes[0].value
+										"schoolName": p.childNodes[0].childNodes[0].childNodes[1].value
 									});
 								}
 								return rez;
