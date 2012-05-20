@@ -19,22 +19,24 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 				"height" : cellHeight,
 				"position" : "relative",
 				"left" : "10px",
-				"margin-top" : "5px"
+				"margin-top" : "5px",
+				"z-index" : "2"
 			});
 			$(cell).addClass("ui-widget-content ui-corner-all");
+			//$(cell).addClass("box effect3");
 
 			var header = document.createElement("div");
 			$(header).css({
 				"text-indent" : "15px"
 			}).addClass("ui-widget-header ui-corner-all");
-			header.innerText = cellData.titlu;
+			header.innerText = cellData.titlu == "" ? "Fara titlu" : cellData.titlu;
 
 			var descriere = document.createElement("div");
-			descriere.innerText = "Descriere job : " + cellData.descriere;
+			descriere.innerText = "Descriere job : " + cellData.descriere + " ...";
 
 			var link = document.createElement("a");
 			link.innerText = cellData.link;
-			link.setAttribute("href", cellData.link);
+			$(link).attr({"href": cellData.link, "target": "_blank"});
 
 			$(cell).append(header).append(descriere).append(link);
 
@@ -57,8 +59,8 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			var currentPage = null;
 			for ( var i = 0; i < searchResults.length; ++i) {
 				var currentResult = searchResults[i];
-				var resultToDisplay = currentResult[0];
-				var cell = createCell(resultToDisplay);
+				//var resultToDisplay = currentResult[0];
+				var cell = createCell(currentResult);
 
 				if (currentPage == null) {
 					currentPage = document.createElement("div");
