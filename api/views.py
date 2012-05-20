@@ -7,8 +7,10 @@ import re
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'core', 'lib')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'linkedin')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'ui')))
 
-from index_manager import IndexManager
+#from index_manager import IndexManager
+from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from linkedin_config import *
 from cookie import *
@@ -84,9 +86,8 @@ def search(request):
 
     return response
 
-def linkedin(request):
-    f = open('linkedin.html', 'r')
-    return HttpResponse(f.read())
+def index(request):
+    return render_to_response("index.html", {})
 
 
 #exchange JSAPI Token for REST API OAuth Token
