@@ -71,37 +71,9 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
               "left": "0px",
             }).append( $("<a>").attr({"href": link, "target": "_blank"}).append(link)) );
 
-          
+
           return cell[0];
-          
-          
-          
-          
-          /*var cell = document.createElement("div");
-			$(cell).css({
-				"width" : cellWidth,
-				"height" : cellHeight,
-            });
-			$(cell).addClass("ui-widget-content ui-corner-all");
-			//$(cell).addClass("ui-widget-content effect3");
-
-			var header = document.createElement("div");
-			$(header).css({
-				"text-indent" : "15px"
-			}).addClass("ui-widget-header ui-corner-all");
-			header.innerText = cellData.titlu == "" ? "Fara titlu" : cellData.titlu;
-
-			var descriere = document.createElement("div");
-			descriere.innerText = "Descriere job : " + cellData.descriere + " ...";
-
-			var link = document.createElement("a");
-			link.innerText = cellData.link;
-			$(link).attr({"href": cellData.link, "target": "_blank"});
-
-			$(cell).append(header).append(descriere).append(link);
-
-			return cell;*/
-		};
+        };
 
 		if (searchResults) {
 			// a search result is returned
@@ -111,7 +83,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 			$(pagedOutputContainer).css({
 				"width" : containerWidth + "px",
-				"height" : (containerHeight-50) + "px"
+				"height" : (containerHeight) + "px"
 			});
 
 			// paginate the results

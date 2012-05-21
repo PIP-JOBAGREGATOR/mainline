@@ -93,7 +93,23 @@ var LayoutManager = LayoutManager || {};
 			"background-image": "url(images/corner.png)"});
         
         $(mainInterior).append(searchDiv).append(prefsDiv).append($("<div>").css("clear", "both"));
-		
+	
+        corner.click(function() {
+          var dialogContent = $("<div>").append( $("<p>").append("Nokia, connecting people") )
+            .append( $("<p>").append("ACER, empowering people") )
+            .append( $("<p>").append("Job'o'tron, employing people"));
+          
+          $("<div>").append(dialogContent).dialog({
+            modal: true,
+            buttons: {
+              Ok: function() {
+                $( this ).dialog( "close" );
+                                                    }
+              }
+          });
+        });
+
+
 		$(main).append(mainInterior);
 		$(document.body).append(main);
 		$(document.body).append(corner);

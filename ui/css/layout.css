@@ -73,3 +73,25 @@ body { /*font: 62.5% "Trebuchet MS", sans-serif;*/
   font-size: 20px;
   padding-left: 10px;
 }
+
+.pref-titlu {
+  margin: 0px;
+  display: block;
+  font-size: 50px;
+  text-indent: 200px;
+  margin-top: 50px;
+}
+
+.pref-titlu + div {
+  width: 80%;
+  height: 3px;
+  position: relative;
+  left: 30px;
+  background-color: #3B5998;
+}
+
+.pref-subtitlu {
+  font-size: 30px;
+  text-indent : 50px;
+  padding-left: 30px;
+}
