@@ -5,7 +5,7 @@
 }
 
 body { /*font: 62.5% "Trebuchet MS", sans-serif;*/
-	
+
 }
 
 .ui-combobox {
@@ -28,37 +28,48 @@ body { /*font: 62.5% "Trebuchet MS", sans-serif;*/
 	padding: 0.3em;
 }
 
-.effect3 {
-	width:70%;
-    height:150px;
-    background:#FFF;
-    margin:40px auto;
-	position: relative;
+.job-container {
+  position: relative;
+  left: 10px;
+  margin-top: 15px;
+  -webkit-box-shadow: 4px 4px 10px #222222, 0px 0px 15px #222222; 
+  background-color: #CCCCCC;
 }
 
-.effect3:before {
-	z-index: 0;
-	position: absolute;
-	content: "";
-	bottom: 15px;
-	left: 10px;
-	width: 50%;
-	top: 80%;
-	max-width: 300px;
-	background: #777;
-	-webkit-box-shadow: 0 15px 10px #777;
-	-moz-box-shadow: 0 15px 10px #777;
-	box-shadow: 0 15px 10px #777;
-	-webkit-transform: rotate(-3deg);
-	-moz-transform: rotate(-3deg);
-	-o-transform: rotate(-3deg);
-	-ms-transform: rotate(-3deg);
-	transform: rotate(-3deg);
+.job-container div {
+  position: relative;
+  left: 8px;
+  top: 8px;
+  background-color: #FFFFFF;
 }
 
-.box {
-	width: 70%;
-	height: 150px;
-	background: #FFF;
-	margin: 40px auto;
+.job-container div > p {
+  font-size: 23px;
+  text-indent : 30px;
+  text-transform:capitalize;
+}
+
+.job-container div > p + div {
+  width: 85%;
+  height: 3px;
+  background-color: #3B5998;
+  margin-left: 4px;
+  position: relative;
+  top: -4px;
+}
+
+.job-container div > p + div + div {
+  position: relative;
+  top: -5px;
+}
+
+.job-container div > p + div + div > div span {
+  color: #CCCCCC;
+  font-size: 20px;
+}
+
+.job-container div > p + div + div > div + div + div span  {
+  color: #000000;
+  font-size: 20px;
+  padding-left: 10px;
 }

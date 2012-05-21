@@ -13,17 +13,77 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		// Creates a cell with a job
 		var createCell = function(cellData) {
-			var cell = document.createElement("div");
+		  var titlu = cellData.titlu == "" ? "Fara titlu" : cellData.titlu;
+          var descriere = cellData.descriere == "" ? "Jobul nu contine o descriere" : cellData.descriere + " ...";
+          var link = cellData.link;
+          
+          var cell = $("<div>").css({
+            "width": cellWidth + "px",
+            "height": cellHeight + "px"
+          }).addClass("job-container ui-corner-all");
+          
+          var content = $("<div>").css({
+            "width": cellWidth - 16,
+            "height": cellHeight - 16
+          })
+
+          cell.append(content);
+
+          content.append($("<p>").append(titlu));
+          content.append( $("<div>") );
+          
+          var content2 = $("<div>").css({
+            "width": cellWidth - 33,
+            "height": cellHeight - 55
+          });
+          content.append(content2);
+
+          var left = $("<div>").css({
+            "float": "left",
+            "width": "100px",
+            "height": "100%"
+          });
+          var bar = $("<div>").css({
+            "float": "left",
+            "width": "1px",
+            "height": "100%",
+            "background-color": "black"
+          });
+          var right = $("<div>").css({
+            "float": "left",
+            "width": (cellWidth - 144) + "px",
+            "height": "100%"
+          }) ;
+
+          content2.append(left).append(bar).append(right).append( $("<div>").css("clear", "both") );
+          
+          left.append($("<span>").append("Descriere:"))
+            .append( $("<span>").css({
+              "position": "absolute",
+              "bottom": "0px",
+              "left": "0px",
+            }).append("Link:") );
+
+           right.append($("<span>").append(descriere))
+            .append( $("<span>").css({
+              "position": "absolute",
+              "bottom": "0px",
+              "left": "0px",
+            }).append( $("<a>").attr({"href": link, "target": "_blank"}).append(link)) );
+
+          
+          return cell[0];
+          
+          
+          
+          
+          /*var cell = document.createElement("div");
 			$(cell).css({
 				"width" : cellWidth,
 				"height" : cellHeight,
-				"position" : "relative",
-				"left" : "10px",
-				"margin-top" : "5px",
-				"z-index" : "2"
-			});
+            });
 			$(cell).addClass("ui-widget-content ui-corner-all");
-			//$(cell).addClass("box effect3");
+			//$(cell).addClass("ui-widget-content effect3");
 
 			var header = document.createElement("div");
 			$(header).css({
@@ -40,7 +100,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 			$(cell).append(header).append(descriere).append(link);
 
-			return cell;
+			return cell;*/
 		};
 
 		if (searchResults) {
