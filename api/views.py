@@ -50,10 +50,28 @@ def get_education_jobs(cv):
 
     return results
 
+def parse_node(node):
+    ret = []
+    if isinstance(node, dict):
+        for key in node:
+            ret.extend(parse_node(node[key]))
+        return ret
+    elif isinstance(node, str):
+        return node.split(" ")
+    elif isinstance(node, int):
+        return [str(node)]
+    elif isinstance(node, list):
+        for val in list:
+            ret.extend(parse_node(val))
+        return ret
+    else:
+        return []
+
 def parse_cv(cv):
-    jobs = get_positions(cv)
-    jobs.extend(get_education_jobs(cv))
-    return jobs
+    cv_string = " ".join(parse_node(cv))   
+    import subprocess
+    output = subprocess.check_output(["java", "-jar", "/home/tibi/mainline/api/resumeAnalize.jar", "automatica calculatoare"])
+    return output.split(' ')
 
 def process_description(description):
     description = re.sub(r'<[^>]*?>', '', description)
