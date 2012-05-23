@@ -1,11 +1,13 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'linkedin.html$', 'views.linkedin'),
+    (r'^$', 'views.index'),
+    (r'^index.html$', 'views.index'),
     (r'^api/search/$', 'views.search'),
     (r'^api/oauth/$', 'views.oauth'),
     (r'^api/cv/refresh/$', 'views.cv_refresh'),
@@ -21,3 +23,10 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': '../ui/',
+            }),
+    )

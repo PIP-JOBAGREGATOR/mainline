@@ -12,7 +12,7 @@ var LayoutManager = LayoutManager || {};
 			"width" : Environment.getWindowWidth() + "px",
 			"height" : logo.logoHeight + "px",
 			"position" : "absolute",
-			"background-color" : "#133783",
+			"background-color" : "#3B5998",
 			"border-bottom": "solid 2px black",
 			"font-size": "45px", 
 			"color": "white"
@@ -29,9 +29,9 @@ var LayoutManager = LayoutManager || {};
 		
 		$(menu).css({
 			"width" : Environment.getWindowWidth() + "px",
-			"height" : menu.menuHeight + "px",
+			"height" : (menu.menuHeight - 2)+ "px",
 			"position" : "absolute",
-			"background-color" : "#133783",
+			"background-color" : "#3B5998",
 			"border-top": "solid 2px black",
 			"bottom" : "0px",
 			"color": "white"
@@ -62,35 +62,26 @@ var LayoutManager = LayoutManager || {};
 			"position" : "absolute",
 			"left" : "0px",
 			"top" : "75px",
-			"overflow" : "hidden",
-			"-webkit-transition": "left 2.0s",
-			"-moz-transition": "left 2.0s",
+			"-webkit-transition": "left 0.5s",
+			"-moz-transition": "left 0.5s",
 			"width" : (Environment.getWindowWidth()) + "px",
 			"height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight)  + "px"
 		});
 
 		$(mainInterior).css({
-			"position" : "absolute",
-			"left" : "0px",
-			"top" : "0px",
 			"width" : (2*Environment.getWindowWidth()) + "px",
 			"height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight)  + "px"
 		});
 
 		$(searchDiv).css({
-			"position" : "absolute",
-			"left" : "0px",
-			"top" : "0px",
-			"width" : Environment.getWindowWidth() + "px",
-			"height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight)  + "px"
+          "float": "left",
+          "width" : Environment.getWindowWidth() + "px",
+		  "height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight)  + "px"
 		});
 		$(prefsDiv).css({
-			"position" : "absolute",
-			"top" : "0px",
-			"visibility" : "hidden",
-			"width" : Environment.getWindowWidth() + "px",
-			"height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight) + "px",
-			"left" : Environment.getWindowWidth() + "px"
+          "float" : "left",
+          "width" : Environment.getWindowWidth() + "px",
+		  "height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight) + "px",
 		});
 		
 		corner.css({
@@ -100,10 +91,25 @@ var LayoutManager = LayoutManager || {};
 			"bottom": "0px", 
 			"right": "0px", 
 			"background-image": "url(images/corner.png)"});
-$(mainInterior).append(prefsDiv);		
-$(mainInterior).append(searchDiv);
-		
-		$(mainInterior).append($("<div>").css("clear", "both"));
+        
+        $(mainInterior).append(searchDiv).append(prefsDiv).append($("<div>").css("clear", "both"));
+	
+        corner.click(function() {
+          var dialogContent = $("<div>").append( $("<p>").append("Nokia, connecting people") )
+            .append( $("<p>").append("ACER, empowering people") )
+            .append( $("<p>").append("Job'o'tron, employing people"));
+          
+          $("<div>").append(dialogContent).dialog({
+            modal: true,
+            buttons: {
+              Ok: function() {
+                $( this ).dialog( "close" );
+                                                    }
+              }
+          });
+        });
+
+
 		$(main).append(mainInterior);
 		$(document.body).append(main);
 		$(document.body).append(corner);
