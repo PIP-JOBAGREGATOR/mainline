@@ -1,0 +1,51 @@
+-- MySQL dump 10.13  Distrib 5.5.23, for osx10.6 (i386)
+--
+-- Host: localhost    Database: job_agregator
+-- ------------------------------------------------------
+-- Server version	5.5.23
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `resume`
+--
+
+DROP TABLE IF EXISTS `resume`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resume` (
+  `id` varchar(50) NOT NULL,
+  `text` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resume`
+--
+
+LOCK TABLES `resume` WRITE;
+/*!40000 ALTER TABLE `resume` DISABLE KEYS */;
+INSERT INTO `resume` (`id`, `text`) VALUES ('Aogx71KjI_','{\n  \"dateOfBirth\": {\n    \"day\": 21,\n    \"month\": 4,\n    \"year\": 1990\n  },\n  \"educations\": {\n    \"_total\": 2,\n    \"values\": [\n      {\n        \"degree\": \"Bachelor\'s degree\",\n        \"endDate\": {\"year\": 2012},\n        \"fieldOfStudy\": \"Computer Science\",\n        \"id\": 108953995,\n        \"schoolName\": \"University of Bucharest\",\n        \"startDate\": {\"year\": 2009}\n      },\n      {\n        \"degree\": \"High School Diploma\",\n        \"endDate\": {\"year\": 2009},\n        \"fieldOfStudy\": \"Mathematics and Computer Science\",\n        \"id\": 110873873,\n        \"schoolName\": \"Samuel von Brukenthal\",\n        \"startDate\": {\"year\": 2005}\n      }\n    ]\n  },\n  \"firstName\": \"Flaviu\",\n  \"headline\": \"Student at Universitatea din BucureÈ™ti\",\n  \"id\": \"Aogx71KjI_\",\n  \"imAccounts\": {\n    \"_total\": 1,\n    \"values\": [{\n      \"imAccountName\": \"flaviupepelea@yahoo.com\",\n      \"imAccountType\": \"yahoo\"\n    }]\n  },\n  \"industry\": \"Computer Software\",\n  \"languages\": {\n    \"_total\": 3,\n    \"values\": [\n      {\n        \"id\": 22,\n        \"language\": {\"name\": \"Romanian\"}\n      },\n      {\n        \"id\": 24,\n        \"language\": {\"name\": \"German\"}\n      },\n      {\n        \"id\": 25,\n        \"language\": {\"name\": \"English\"}\n      }\n    ]\n  },\n  \"lastName\": \"Pepelea\",\n  \"mainAddress\": \"Str. Serbota Nr. 22, Romania, Sibiu\",\n  \"phoneNumbers\": {\n    \"_total\": 1,\n    \"values\": [{\n      \"phoneNumber\": \"+40766631365\",\n      \"phoneType\": \"mobile\"\n    }]\n  },\n  \"positions\": {\n    \"_total\": 1,\n    \"values\": [{\n      \"company\": {\n        \"id\": 10667,\n        \"industry\": \"Internet\",\n        \"name\": \"Facebook\",\n        \"size\": \"1001-5000 employees\",\n        \"type\": \"Privately Held\"\n      },\n      \"endDate\": {\n        \"month\": 9,\n        \"year\": 2011\n      },\n      \"id\": 280255979,\n      \"isCurrent\": false,\n      \"startDate\": {\n        \"month\": 7,\n        \"year\": 2011\n      },\n      \"title\": \"Software Engineer Intern\"\n    }]\n  },\n  \"skills\": {\"_total\": 0},\n  \"summary\": \"\\u2022 Strong algorithms and data structures background\\n\\u2022 Experience in C/C++, Python, Java\\n\\u2022 Basic knowledge of C#, ASP.NET, HTML, JavaScript, CSS, SQL, PL/SQL\"\n}');
+/*!40000 ALTER TABLE `resume` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-05-22 17:15:05
