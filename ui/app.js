@@ -41,7 +41,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-					/*"http://192.168.43.243:8000/search"*/"http://localhost/mock.json"/*apiURL + "search"*/,
+				/*"http://192.168.1.101:8000/api/search/"*/"http://localhost/mock.json"/*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -68,6 +68,7 @@ var app = (function() {
 		
 		
 		pageAPI.cvInputAPI.addSearchCallback(searchCallback);
+		searchCallback();
 		
 	};
 	
