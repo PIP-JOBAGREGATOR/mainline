@@ -72,11 +72,53 @@ var app = (function() {
 		
 	};
 	
-	
-	
+
+    var getCV = function(){
+		$.ajax({
+		"url": "http://localhost/cv/get/",
+		"async": true,
+		"type": "post",
+		"data": {"content": ""},
+		"success": function (data, textStatus, jqXHR) {
+			if (typeof(data) == "string") {
+				pageAPI.cvInputAPI.setCV(JSON.parse(data));
+			}
+			else {
+				window.console.error("Rezultat aiurea");
+			}
+		},
+		"error": function(jqXHR, textStatus, errorThrown) {
+			window.console.log("A crapat : " + errorThrown);
+		}
+		});
+	};
+	var saveCV = function(){
+		var jsonOb = pageAPI.cvInputAPI.saveCV();
+		var json = buildQueryJSON(jsonOb, 0);
+		
+		$.ajax({
+		"url": "http://localhost/cv/set/",
+		"async": true,
+		"type": "post",
+		"data": {"content": json},
+		"success": function (data, textStatus, jqXHR) {
+			window.console.log("OK");
+		},
+		"error": function(jqXHR, textStatus, errorThrown) {
+			window.console.log("A crapat : " + errorThrown);
+		}
+		});
+		setTimeout("saveCV()",30000);
+	}
+
+
+
+
+
+    setTimeout("saveCV()",60000);
 	$(document).ready(bootstrap);
 	$(window).resize(bootstrap);
-	
+	$(document).ready(getCV);
 
 })();
 

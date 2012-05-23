@@ -15,7 +15,19 @@
         </script>
         <script>
           function onLinkedInAuth() {
-            location.href = "https://localhost:8443/api/oauth/"
+
+            $.ajax({
+                "url": "http://localhost/api/oauth",
+                "async": true,
+                "type": "post",
+                "data": {"content": ""},
+                "success": function (data, textStatus, jqXHR) {
+                        window.console.log("OK");
+                },
+                "error": function(jqXHR, textStatus, errorThrown) {
+                        window.console.log("A crapat : " + errorThrown);
+                }
+                });
           }
         </script>
 

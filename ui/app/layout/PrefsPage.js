@@ -45,7 +45,27 @@ LayoutManager.PrefsPage = {};
         .append("modificarile facute asupra CV-ului"));
       resetCVButton.button();
       resetCVButton.find("span").css("font-size", "18px");
+      $(resetCVButton).click(function(){
+				
+		$.ajax({
+		"url": "http://localhost/cv/refresh/",
+		"async": true,
+		"type": "post",
+		"data": {"content": ""},
+		"success": function (data, textStatus, jqXHR) {
+			if (typeof(data) == "string") {
+				pageAPI.cvInputAPI.setCV(JSON.parse(data));
+			}
+			else {
+				window.console.error("Rezultat aiurea");
+			}
+		},
+		"error": function(jqXHR, textStatus, errorThrown) {
+			window.console.log("A crapat : " + errorThrown);
+		}
+		});
 
+	});
 
 
       linkedinButton.click(function() {
