@@ -28,13 +28,23 @@ def get_education_jobs(cv):
         school_name = edu["schoolName"].lower()
         common_bits = {}
         for key in COLLEGE_JOB:
-            school_bits = set(school_name.split(" "))
-            college_bits = set(key.lower().split(" "))
-            common_bits[key] = school_bits & college_bits
+            school_bits = school_name.split(" ")
+            college_bits = key.lower().split(" ")
+            cnt = 0
+            for bit in school_bits:
+                if bit in college_bits:
+                    cnt += 1
+            common_bits[key] = cnt
 
         for key in common_bits:
-            if len(common_bits) > 2:
+            if common_bits[key] >= min(2, key.lower().split(" ")):
                 results.extend(COLLEGE_JOB[key])
+
+        if len(results) == 0:
+            for key in common_bits:
+                if common_bits[key] == 1:
+                    results.extend(COLLEGE_JOB[key])
+                    break
 
     return results
 
@@ -60,7 +70,9 @@ def search(request):
             size = data.get("size", RESULTS_PER_PAGE)
             queryString = data["queryString"]
             cv = data.get("cv", "")
+            print cv
             queryString += " " + ' '.join(parse_cv(cv))    
+            print queryString
 
             index = IndexManager()
             temp = index.query(queryString)
@@ -71,7 +83,6 @@ def search(request):
                 result["titlu"] = job['title']
                 result["descriere"] = process_description(job["description"])
                 result["link"] = job['url']
-                print result
                 results.append(result)      
 
             response.content = json.dumps(results)
