@@ -70,7 +70,7 @@ def parse_node(node):
 def parse_cv(cv):
     cv_string = " ".join(parse_node(cv))   
     import subprocess
-    output = subprocess.check_output(["java", "-jar", "/home/bogdan/mainline/api/resumeAnalize.jar", "automatica calculatoare"])
+    output = subprocess.check_output(["java", "-jar", "/home/bogdan/mainline/api/resumeAnalize.jar", cv_string])
     return output.split(' ')
 
 def process_description(description):
@@ -91,7 +91,8 @@ def search(request):
             queryString = data["queryString"]
             cv = data.get("cv", "")
             print cv
-            queryString += " " + ' '.join(parse_cv(cv))    
+	    if (not cv) == False: 
+            	queryString += " " + ' '.join(parse_cv(cv))    
             print queryString
 
             index = IndexManager()
