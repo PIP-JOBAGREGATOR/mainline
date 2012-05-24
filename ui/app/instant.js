@@ -32,7 +32,7 @@ Instant = (function() {
       IN.User.logout();
 
       $.ajax({
-          "url" : "https://192.168.1.105:8443/logout",
+          "url" : window.hostname + "/logout",
           "async" : true,
           "type" : "post",
           "data" : {"content" : ""},
