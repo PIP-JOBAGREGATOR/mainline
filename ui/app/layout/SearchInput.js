@@ -62,7 +62,8 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		$(searchButton).css({
 			"width" : searchButtonWidth + "px",
 			"height" : (searchBarHeight - 3) + "px",
-			"float" : "right"
+			"float" : "right",
+            "font-size" : "15px",
 		});
 
 		$(searchInput).css(

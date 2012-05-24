@@ -22,8 +22,24 @@ LayoutManager.Menu = LayoutManager.Menu || {};
 		var textSearch = document.createElement("div");
 		var textPrefs = document.createElement("div");
 
-		$(searchButton).click(function(){loadSearch(mainDiv);});
-		$(prefsButton).click(function(){loadPrefs(mainDiv);});
+		$(searchButton).click(function() {
+            loadSearch(mainDiv);
+            $(topPrefs).css({
+              "background-color" : "rgb(170,170,170)"
+            });
+            $(topSearch).css({
+              "background-color" : "rgb(113,113,113)"
+            });
+        });
+		$(prefsButton).click(function() {
+          loadPrefs(mainDiv);
+          $(topSearch).css({
+            "background-color" : "rgb(170,170,170)"
+          });
+          $(topPrefs).css({
+            "background-color" : "rgb(113,113,113)"
+          });
+        });
 	
 		textSearch.innerHTML = "Cautare";
 		textPrefs.innerHTML = "Preferinte";
@@ -32,25 +48,27 @@ LayoutManager.Menu = LayoutManager.Menu || {};
 			"width" : searchButton.searchHeight+"px",
 			"height" : "7px",
 			"position" : "absolute",
-			"background-color" : "red"
+			"background-color" : "rgb(113,113,113)"
 		});
 		$(topPrefs).css({
 			"width" : prefsButton.prefsHeight+"px",
 			"height" : "7px",
 			"position" : "absolute",
-			"background-color" : "red"
+			"background-color" : "rgb(170,170,170)"
 		});
 		$(textSearch).css({
 			"width" : searchButton.searchHeight+"px",
 			"height" : "20px",
 			"position" : "absolute",
-			"top" : "9px"
+			"top" : "9px",
+            "color" : "rgb(43,12,12)"
 		});
 		$(textPrefs).css({
 			"width" : prefsButton.prefsHeight+"px",
 			"height" : "20px",
 			"position" : "absolute",
-			"top" : "9px"
+			"top" : "9px",
+            "color" : "rgb(43,12,12)"
 		});
 		
 		$(searchButton).append(topSearch);

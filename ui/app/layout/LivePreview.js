@@ -14,22 +14,27 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		// Creates a cell with a job
 		var createCell = function(cellData) {
 		  var titlu = cellData.titlu == "" ? "Fara titlu" : cellData.titlu;
-          var descriere = cellData.descriere == "" ? "Jobul nu contine o descriere" : cellData.descriere + " ...";
+          var descriere = cellData.descriere == "" ? "Jobul nu contine o descriere" : cellData.descriere.substr(0, 200) + " ...";
           var link = cellData.link;
           
           var cell = $("<div>").css({
             "width": cellWidth + "px",
-            "height": cellHeight + "px"
+            "height": cellHeight + 10 + "px"
           }).addClass("job-container ui-corner-all");
           
           var content = $("<div>").css({
-            "width": cellWidth - 16,
-            "height": cellHeight - 16
+            "width": cellWidth - 16 + "px",
+            "height": cellHeight - 16 + 10 + "px"
           })
 
           cell.append(content);
 
-          content.append($("<p>").append(titlu));
+          content.append($("<p>").css({
+            "font-size" : "18pt",
+            "font-style" : "italic",
+            "padding-top" : "5px",
+            "margin-bottom" : "5px"
+          }).append(titlu));
           content.append( $("<div>") );
           
           var content2 = $("<div>").css({
@@ -47,6 +52,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             "float": "left",
             "width": "1px",
             "height": "100%",
+            "margin-right" : "10px",
             "background-color": "black"
           });
           var right = $("<div>").css({
@@ -57,19 +63,19 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
           content2.append(left).append(bar).append(right).append( $("<div>").css("clear", "both") );
           
-          left.append($("<span>").append("Descriere:"))
+          left.append($("<span>").css({"font-size" : "11pt"}).append("Descriere:"))
             .append( $("<span>").css({
               "position": "absolute",
               "bottom": "0px",
               "left": "0px",
-            }).append("Link:") );
+            }).css({"font-size" : "11pt"}).append("Link:") );
 
-           right.append($("<span>").append(descriere))
+           right.append($("<span>").css({"font-size" : "11pt"}).append(descriere))
             .append( $("<span>").css({
               "position": "absolute",
               "bottom": "0px",
               "left": "0px",
-            }).append( $("<a>").attr({"href": link, "target": "_blank"}).append(link)) );
+            }).append( $("<a>").attr({"href": link, "target": "_blank"}).css({"font-size" : "11pt"}).append(link)) );
 
 
           return cell[0];
@@ -114,7 +120,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 			$(container).append(pagedOutputContainer);
 		} else {
-			container.innerText = "Cauta ceva nu sta si te uita ca vitelu la poarta noua";
+			container.innerText = "";
 		}
 
 		return {

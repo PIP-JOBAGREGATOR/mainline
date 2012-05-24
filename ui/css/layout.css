@@ -77,7 +77,7 @@ body { /*font: 62.5% "Trebuchet MS", sans-serif;*/
 .pref-titlu {
   margin: 0px;
   display: block;
-  font-size: 50px;
+  font-size: 20px;
   text-indent: 200px;
   margin-top: 50px;
 }
@@ -91,7 +91,9 @@ body { /*font: 62.5% "Trebuchet MS", sans-serif;*/
 }
 
 .pref-subtitlu {
-  font-size: 30px;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-indent : 50px;
   padding-left: 30px;
 }

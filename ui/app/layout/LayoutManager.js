@@ -6,13 +6,15 @@ var LayoutManager = LayoutManager || {};
 
 	var buildLogo = function() {
 		var logo = document.createElement("div");
-		logo["logoHeight"] = 75;
+		logo["logoHeight"] = 100;
 		
 		$(logo).css({
 			"width" : Environment.getWindowWidth() + "px",
 			"height" : logo.logoHeight + "px",
 			"position" : "absolute",
-			"background-color" : "#3B5998",
+            "background": "url(images/top.png) no-repeat center",
+            "background-size": "100%",
+			//"background-color" : "#3B5998",
 			"border-bottom": "solid 2px black",
 			"font-size": "45px", 
 			"color": "white"
@@ -31,7 +33,9 @@ var LayoutManager = LayoutManager || {};
 			"width" : Environment.getWindowWidth() + "px",
 			"height" : (menu.menuHeight - 2)+ "px",
 			"position" : "absolute",
-			"background-color" : "#3B5998",
+			//"background-color" : "#3B5998",
+            "background": "url(images/bottom.png) no-repeat center",
+            "background-size": "100%",
 			"border-top": "solid 2px black",
 			"bottom" : "0px",
 			"color": "white"
@@ -61,7 +65,7 @@ var LayoutManager = LayoutManager || {};
 		$(main).css({
 			"position" : "absolute",
 			"left" : "0px",
-			"top" : "75px",
+			"top" : logo.logoHeight + "px",
 			"-webkit-transition": "left 0.5s",
 			"-moz-transition": "left 0.5s",
 			"width" : (Environment.getWindowWidth()) + "px",
@@ -75,12 +79,14 @@ var LayoutManager = LayoutManager || {};
 
 		$(searchDiv).css({
           "float": "left",
+          //"background" : "url(images/middle.png) no-repeat",
+          //"background-size" : "100%",
           "width" : Environment.getWindowWidth() + "px",
 		  "height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight)  + "px"
 		});
 		$(prefsDiv).css({
           "float" : "left",
-          "width" : Environment.getWindowWidth() + "px",
+          "width" : "700px",//Environment.getWindowWidth() + "px",
 		  "height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight) + "px",
 		});
 		
