@@ -56,7 +56,7 @@ Instant = (function() {
 
         $("#login").append(msg);
         $("#login").css({"font-size" : "15px"});
-        getCV();
+        window.getCV();
         window.console.log(msg);
       } else {
         msg = "Sorry, an error has occured in logging in.  Please try again.";
