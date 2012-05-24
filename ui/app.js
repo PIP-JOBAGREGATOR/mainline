@@ -95,7 +95,7 @@ var app = (function() {
 		$.ajax({
 		"url": "https://192.168.1.105:8443/api/cv/get/",
 		"async": true,
-		"type": "get",
+		"type": "post",
 		"data": {"content": ""},
 		"success": function (data, textStatus, jqXHR) {
 			if (typeof(data) == "string") {
