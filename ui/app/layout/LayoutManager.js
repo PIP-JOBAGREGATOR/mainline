@@ -85,7 +85,7 @@ var LayoutManager = LayoutManager || {};
 		});
 		$(prefsDiv).css({
           "float" : "left",
-          "width" : "700px",//Environment.getWindowWidth() + "px",
+          "width" : Environment.getWindowWidth() + "px",
 		  "height" : (Environment.getWindowHeight() - logo.logoHeight - menu.menuHeight) + "px",
 		});
 		

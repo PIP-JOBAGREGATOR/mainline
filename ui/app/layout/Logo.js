@@ -8,8 +8,8 @@ LayoutManager.Logo = LayoutManager.Logo || {};
 	  var left = $("<div>").css({
         "float": "left",
         "padding-left": "20px",
-        "background": "url(images/logo.png) no-repeat center",
-        "width": "543px",
+        "background": "url(images/logo.png) no-repeat",
+        "width": "704px",
         "height": "100px"
       });
       var right = $("<div>").css({

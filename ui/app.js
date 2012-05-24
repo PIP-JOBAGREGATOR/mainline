@@ -59,7 +59,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				apiURL+"search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
+			    "http://localhost/mock.json"/*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},

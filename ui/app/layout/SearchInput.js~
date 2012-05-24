@@ -496,8 +496,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             $(left).append(combo).append(del).append( $("<div>").css("clear", "both") );
 
             if (val) {
-              //$(page).append(fieldContainer);
-              $(fieldContainer).insertBefore($("#addFieldButton"));
+              $(page).append(fieldContainer);
 
               var theInput = combo[0].childNodes[0];
               $(theInput).attr("value", val).keyup();
@@ -522,13 +521,12 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		$(addFieldButton).button({
 			"label" : "Adauga camp la CV"
-		}).attr("id", "addFieldButton");
+		});
 		$(SaveCVButton).button({
 			"label" : "Salveaza CV"
 		});
 		$(addFieldButton).click(function() {
-          var fff = $(buildField());
-          fff.insertBefore($(addFieldButton));
+			$(currentPage).append(buildField());
 		});
 
 		$(currentPage).append(addFieldButton);
