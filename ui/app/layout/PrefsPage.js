@@ -5,6 +5,12 @@ LayoutManager.PrefsPage = {};
 
 (function() {
 	var build = function(container) {
+    
+      $(container).css({
+        "background" : "url(images/prefs.png) right bottom no-repeat"
+      });
+
+
       var buildTitle = function(titlu) {
         var p = $("<h1>").addClass("pref-titlu").append(titlu);
         var line = $("<div>");

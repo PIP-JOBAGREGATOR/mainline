@@ -14,7 +14,6 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			"height" : (container["height"]) + "px",
 			"position" : "absolute",
 			"top" : "0px",
-            "background" : "url(images/middle_left.png) no-repeat",
             "background-size" : "100%"
 			//"background-color" : "#eeeeee"
 		});
@@ -22,7 +21,6 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		$(livePreview).css({
 			"width" : 0.5 * Environment.getWindowWidth() + "px",
 			"height" : (container["height"]) + "px",
-            "background" : "url(images/middle_right.png) no-repeat",
             "background-size" : "716px",
 			"position" : "absolute",
 			"top" : "0px",

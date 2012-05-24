@@ -496,8 +496,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             $(left).append(combo).append(del).append( $("<div>").css("clear", "both") );
 
             if (val) {
-              //$(page).append(fieldContainer);
-              $(fieldContainer).insertBefore($("#addFieldButton"));
+              $(page).append(fieldContainer);
 
               var theInput = combo[0].childNodes[0];
               $(theInput).attr("value", val).keyup();
@@ -515,20 +514,19 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		var currentPage = document.createElement("div");
 		var addFieldButton = document.createElement("div");
-		SaveCVButton = document.createElement("div");
+		var SaveCVButton = document.createElement("div");
 		$(pagedContainer.pages).css({
 			"font-size": "62.5%"
 		});
 
 		$(addFieldButton).button({
 			"label" : "Adauga camp la CV"
-		}).attr("id", "addFieldButton");
+		});
 		$(SaveCVButton).button({
 			"label" : "Salveaza CV"
 		});
 		$(addFieldButton).click(function() {
-          var fff = $(buildField());
-          fff.insertBefore($(addFieldButton));
+			$(currentPage).append(buildField());
 		});
 
 		$(currentPage).append(addFieldButton);
@@ -607,11 +605,8 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
           var root = pagedInputContainer;
           var rez = {};
 
-          for (var i = 0; i < root.childNodes[0].childNodes[0].childNodes[0].childNodes.length; ++i) {
+          for (var i = 2; i < root.childNodes[0].childNodes[0].childNodes[0].childNodes.length; ++i) {
             var el = root.childNodes[0].childNodes[0].childNodes[0].childNodes[i].childNodes[1];
-            if (el && el.hasOwnProperty("serialize") == false)
-              continue;
-            
             var ser = el.serialize();
             for (var pr in ser) {
               if (rez.hasOwnProperty(pr) == false)

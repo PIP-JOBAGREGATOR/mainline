@@ -10,6 +10,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		var cellWidth = containerWidth - 40;
 		var cellHeight = 150;
+        var stanga = 130;
 
 		// Creates a cell with a job
 		var createCell = function(cellData) {
@@ -19,64 +20,89 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
           
           var cell = $("<div>").css({
             "width": cellWidth + "px",
-            "height": cellHeight + 10 + "px"
-          }).addClass("job-container ui-corner-all");
+            "height": "150px",
+            "margin-top": "20px"
+          }).addClass("job-container");
           
-          var content = $("<div>").css({
-            "width": cellWidth - 16 + "px",
-            "height": cellHeight - 16 + 10 + "px"
-          })
+          var left = $("<div>").css({
+            "float": "left",
+            "height": "100%",
+            "width": stanga + "px",
+            "background": "url(images/dot-line.png) right repeat-y",
+            "background-color": "white"
+          }).append($("<div>").css({
+            "height": "38px",
+            "width": "100%",
+            "background": "url(images/pin.png) 10px no-repeat",
+            "position": "relative",
+            "border-bottom": "solid 3px #385998"
+            //"top": "38px"
+          })).append($("<div>").css({
+            "position": "relative",
+            "top": "10px",
+            "left": "15px"
+          }).append("Descriere")).append($("<div>").css({
+            "position": "relative",
+            "top": "69px",
+            "left": "15px"
+          }).append("Link"));
 
-          cell.append(content);
+          var right = $("<div>").css({
+            "float": "left",
+            "height": "100%",
+            "width": (cellWidth - stanga) + "px",
+            "background-color": "white"
+          });
+          
+         var doOnClick = function() {
+            right.css({
+              "-webkit-transform": "rotate(2deg)",
+              "position": "relative",
+              "left": "3px",
+              "top": "13px",
+              "-webkit-box-shadow": "4px 4px 10px #222222, 0px 0px 15px #222222" 
+            });
+            left.css({
+              "-webkit-box-shadow": "4px 4px 10px #222222, 0px 0px 15px #222222" 
+            });
 
-          content.append($("<p>").css({
+            cell.removeClass("job-container").css({
+              "margin-top": "20px"
+            })
+
+         };
+          cell.append(left).append(right).append( $("<div>").css("clear", "both") );
+
+          right.append($("<p>").css({
             "font-size" : "18pt",
             "font-style" : "italic",
             "padding-top" : "5px",
-            "margin-bottom" : "5px"
+            "margin-bottom" : "5px",
+            "text-indent": "30px"
           }).append(titlu));
-          content.append( $("<div>") );
-          
-          var content2 = $("<div>").css({
-            "width": cellWidth - 33,
-            "height": cellHeight - 55
-          });
-          content.append(content2);
-
-          var left = $("<div>").css({
-            "float": "left",
-            "width": "100px",
-            "height": "100%"
-          });
-          var bar = $("<div>").css({
-            "float": "left",
-            "width": "1px",
-            "height": "100%",
-            "margin-right" : "10px",
-            "background-color": "black"
-          });
-          var right = $("<div>").css({
-            "float": "left",
-            "width": (cellWidth - 144) + "px",
-            "height": "100%"
-          }) ;
-
-          content2.append(left).append(bar).append(right).append( $("<div>").css("clear", "both") );
-          
-          left.append($("<span>").css({"font-size" : "11pt"}).append("Descriere:"))
-            .append( $("<span>").css({
-              "position": "absolute",
-              "bottom": "0px",
-              "left": "0px",
-            }).css({"font-size" : "11pt"}).append("Link:") );
-
-           right.append($("<span>").css({"font-size" : "11pt"}).append(descriere))
-            .append( $("<span>").css({
-              "position": "absolute",
-              "bottom": "0px",
-              "left": "0px",
-            }).append( $("<a>").attr({"href": link, "target": "_blank"}).css({"font-size" : "11pt"}).append(link)) );
-
+          right.append( $("<div>").css({
+            "margin-left": "auto",
+            "margin-right": "auto",
+            "height": "3px",
+            "width": "100%",
+            "background-color": "#3B5998"
+          }) );
+          right.append($("<div>").css({
+            "width": "100%",
+            "height": "100px"
+          }).append($("<div>").css({
+            "font-size" : "11pt", 
+            "padding-left": "10px",
+            "height": "80px",
+            "overflow": "hidden",
+            "text-indent": "30px"}).append(descriere))
+            .append( $("<div>").css({
+            
+            }).append( $("<a>").attr({"href": link, "target": "_blank"}).click(doOnClick)
+              .css({
+                "font-size" : "11pt",
+                "padding-left": "10px",
+              }).append(link)) ));
 
           return cell[0];
         };

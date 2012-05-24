@@ -32,20 +32,20 @@ var PagedContainer = function(container) {
 		"orientation": "vertical",
 		"value": 95,
 		"stop": function(event, ui) {
-			var sliderElement = ui.handle.parentElement;
-			var containerElement = sliderElement.parentElement;
-			var pagedContainer = containerElement.pagedContainer;
+			//var sliderElement = ui.handle.parentElement;
+			//var containerElement = sliderElement.parentElement;
+			//var pagedContainer = containerElement.pagedContainer;
 			
-			var pageNumber = 1;
-			var value = ui.value;
+			//var pageNumber = 1;
+			//var value = ui.value;
 			
-			while (pageNumber * pagedContainer.parameters.pageLength < value) {
-				++pageNumber;
-			}
-			pageNumber = pagedContainer.parameters.numberOfPages - pageNumber;
+			//while (pageNumber * pagedContainer.parameters.pageLength < value) {
+			//	++pageNumber;
+			//}
+			//pageNumber = pagedContainer.parameters.numberOfPages - pageNumber;
 			
 			//Tell the container that the current page must be changed
-			pagedContainer.goToPage(pageNumber);
+			//pagedContainer.goToPage(pageNumber);
 			
 			
 			
@@ -140,8 +140,9 @@ PagedContainer.prototype.addPage = function(page) {
 	var preparedPage = document.createElement("div");
 	$(preparedPage).css({
 		"width": this.parameters.containerWidth + "px",
-		"height": this.parameters.containerHeight + "px",
-		"overflow": "hidden"
+		//"height": this.parameters.containerHeight + "px",
+		//"overflow": "hidden"
+        "height": "auto"
 	});
 	
 	$(preparedPage).append(page);
