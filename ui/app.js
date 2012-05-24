@@ -26,7 +26,7 @@ var app = (function() {
 	                var jsonOb = pageAPI.cvInputAPI.saveCV();
        	        	var json = buildQueryJSON(jsonOb, 0);
                 	$.ajax({
-                	"url": "https://192.168.1.105:8443/api/cv/set/",
+                	"url": window.hostname + "/api/cv/set/",
                 	"async": true,
                 	"type": "post",
                 	"data": {"content": json},
@@ -48,7 +48,7 @@ var app = (function() {
 			window.console.log("ASTAAAA" + json);
 			
 			$.ajax({
-				"url": /*(function(){
+				/*"url": (function(){
 					if (jsonOb.cv.positions._total == 0 && jsonOb.cv.educations._total >= 1) {
 						return "http://localhost/results.json";
 					}
@@ -59,7 +59,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				"https://192.168.1.105:8443/api/search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
+				"url": window.hostname + "/api/search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -93,7 +93,7 @@ var app = (function() {
 
     var getCV = function(){
 		$.ajax({
-		"url": "https://192.168.1.105:8443/api/cv/get/",
+		"url": window.hostname + "/api/cv/get/",
 		"async": true,
 		"type": "post",
 		"data": {"content": ""},
