@@ -40,6 +40,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 	var searchButton = null;
 	var searchInput = null;
+	var SaveCVButton = null;
 
 	var buildSearchBar = function(container) {
 		var searchBar = container;
@@ -393,7 +394,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		var currentPage = document.createElement("div");
 		var addFieldButton = document.createElement("div");
-
+		var SaveCVButton = document.createElement("div");
 		$(pagedContainer.pages).css({
 			"font-size": "62.5%"
 		});
@@ -401,13 +402,16 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		$(addFieldButton).button({
 			"label" : "Adauga camp la CV"
 		});
+		$(SaveCVButton).button({
+			"label" : "Salveaza CV"
+		});
 		$(addFieldButton).click(function() {
 			$(currentPage).append(buildField());
 		});
 
 		$(currentPage).append(addFieldButton);
 
-
+		$(currentPage).append(SaveCVButton);
 		pagedContainer.addPage(currentPage);
 	};
 
@@ -470,8 +474,18 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			},
 			"addSearchCallback" : function(callback) {
 				$(searchButton).click(callback);
-				$(searchInput).keyup(callback);
+				$(searchInput).keyup(
+					function(event){
+						var key = event.keyCode;
+						if(key == 13 || key == 32  )
+							callback();
+					}
+				);
 				searchCallback = callback;
+			},
+			"addSaveCVCallback" : function(callback){
+				$(SaveCVButton).click(callback);
+
 			},
 			"setCV": function(CV){
 				alert("panda");
