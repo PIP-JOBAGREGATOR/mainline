@@ -3,7 +3,7 @@
 var app = (function() {	
 	var hostname = window.location.hostname;
 	if (hostname.length == 0) {
-		hostname = "https://192.168.0.114:8443";
+		hostname = "https://192.168.1.105:8443";
 	}
 	var apiURL = hostname + "/api/";
 	
