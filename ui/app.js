@@ -26,7 +26,7 @@ var app = (function() {
 	                var jsonOb = pageAPI.cvInputAPI.saveCV();
        	        	var json = buildQueryJSON(jsonOb, 0);
                 	$.ajax({
-                	"url": "https://192.168.0.114:8443/api/cv/set/",
+                	"url": "https://192.168.1.105:8443/api/cv/set/",
                 	"async": true,
                 	"type": "post",
                 	"data": {"content": json},
@@ -59,7 +59,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				"https://192.168.0.114:8443/api/search/"/*"https://localhost/mock.json"*//*apiURL + "search"*/,
+				"https://192.168.1.105:8443/api/search/"/*"https://localhost/mock.json"*//*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -93,7 +93,7 @@ var app = (function() {
 
     var getCV = function(){
 		$.ajax({
-		"url": "https://192.168.0.114:8443/api/cv/get/",
+		"url": "https://192.168.1.105:8443/api/cv/get/",
 		"async": true,
 		"type": "post",
 		"data": {"content": ""},
