@@ -32,7 +32,7 @@ Instant = (function() {
       IN.User.logout();
 
       $.ajax({
-          "url" : "https://localhost:8443/logout",
+          "url" : window.hostname + "/logout",
           "async" : true,
           "type" : "post",
           "data" : {"content" : ""},
@@ -56,6 +56,7 @@ Instant = (function() {
 
         $("#login").append(msg);
         $("#login").css({"font-size" : "15px"});
+        window.getCV();
         window.console.log(msg);
       } else {
         msg = "Sorry, an error has occured in logging in.  Please try again.";

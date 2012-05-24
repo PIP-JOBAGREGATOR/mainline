@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
-        <script type="text/javascript">
-            window['hostname'] = 'https://192.168.1.105:8443';
-        </script>
+	<head>
 		<link rel="stylesheet" href="css/layout.css" />
 		<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.20.custom.css" />
 
@@ -15,13 +12,12 @@
           api_key: ljzvhbt0la32
           authorize: true
           credentials_cookie: true
-          onLoad: onLinkedInLoad
         </script>
         <script>
           function onLinkedInAuth() {
 
             $.ajax({
-                "url": window.hostname + "/api/oauth/",
+                "url": "http://localhost/api/oauth",
                 "async": true,
                 "type": "post",
                 "data": {"content": ""},
@@ -48,8 +44,7 @@
 		<script type="text/javascript" src="app/layout/PrefsPage.js"></script>
 		<script type="text/javascript" src="app/layout/LayoutManager.js"></script>
 
-        <script type="text/javascript" src="app.js"></script>
-        <script src="app/instant.js"></script>
+		<script type="text/javascript" src="app.js"></script>
 	</head>
 
     <body>

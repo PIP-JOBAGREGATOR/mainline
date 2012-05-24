@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'linkedi
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'ui')))
 
 from job_map import COLLEGE_JOB
-#from index_manager import IndexManager
+from index_manager import IndexManager
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from linkedin_config import *
@@ -61,7 +61,7 @@ def parse_node(node):
     elif isinstance(node, int):
         return [str(node)]
     elif isinstance(node, list):
-        for val in list:
+        for val in node:
             ret.extend(parse_node(val))
         return ret
     else:
@@ -70,7 +70,7 @@ def parse_node(node):
 def parse_cv(cv):
     cv_string = " ".join(parse_node(cv))   
     import subprocess
-    output = subprocess.check_output(["java", "-jar", "/home/bogdan/mainline/api/resumeAnalize.jar", "automatica calculatoare"])
+    output = subprocess.check_output(["java", "-jar", "/home/bogdan/mainline/api/resumeAnalize.jar", cv_string])
     return output.split(' ')
 
 def process_description(description):
@@ -91,7 +91,8 @@ def search(request):
             queryString = data["queryString"]
             cv = data.get("cv", "")
             print cv
-            queryString += " " + ' '.join(parse_cv(cv))    
+	    if (not cv) == False: 
+            	queryString += " " + ' '.join(parse_cv(cv))    
             print queryString
 
             index = IndexManager()

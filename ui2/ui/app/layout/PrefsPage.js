@@ -5,12 +5,6 @@ LayoutManager.PrefsPage = {};
 
 (function() {
 	var build = function(container) {
-    
-      $(container).css({
-        "background" : "url(images/prefs.png) right bottom no-repeat"
-      });
-
-
       var buildTitle = function(titlu) {
         var p = $("<h1>").addClass("pref-titlu").append(titlu);
         var line = $("<div>");
@@ -41,20 +35,20 @@ LayoutManager.PrefsPage = {};
       $(container).append( buildTitle("LinkedIn") );
       var linkedinButton = $("<button>").append("LinkedIn");
       $(container).append( $("<p>").addClass("pref-subtitlu")
-        .append("Acceseaza contul tau de    ").append(linkedinButton) );
+        .append("Acceseaza contul tau de ").append(linkedinButton) );
       linkedinButton.button();
-      linkedinButton.find("span").css("font-size", "12px");
+      linkedinButton.find("span").css("font-size", "18px");
 
       $(container).append( buildTitle("CV") );
       var resetCVButton = $("<button>").append("Reseteaza");
       $(container).append( $("<p>").addClass("pref-subtitlu").append(resetCVButton)
-        .append("   modificarile facute asupra CV-ului"));
+        .append("modificarile facute asupra CV-ului"));
       resetCVButton.button();
-      resetCVButton.find("span").css("font-size", "12px");
+      resetCVButton.find("span").css("font-size", "18px");
       $(resetCVButton).click(function(){
 				
 		$.ajax({
-		"url": window.hostname + "/api/cv/refresh/",
+		"url": "http://localhost/cv/refresh/",
 		"async": true,
 		"type": "post",
 		"data": {"content": ""},
