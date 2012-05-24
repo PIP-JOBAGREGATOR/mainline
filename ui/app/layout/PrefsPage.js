@@ -35,16 +35,16 @@ LayoutManager.PrefsPage = {};
       $(container).append( buildTitle("LinkedIn") );
       var linkedinButton = $("<button>").append("LinkedIn");
       $(container).append( $("<p>").addClass("pref-subtitlu")
-        .append("Acceseaza contul tau de ").append(linkedinButton) );
+        .append("Acceseaza contul tau de    ").append(linkedinButton) );
       linkedinButton.button();
-      linkedinButton.find("span").css("font-size", "18px");
+      linkedinButton.find("span").css("font-size", "12px");
 
       $(container).append( buildTitle("CV") );
       var resetCVButton = $("<button>").append("Reseteaza");
       $(container).append( $("<p>").addClass("pref-subtitlu").append(resetCVButton)
-        .append("modificarile facute asupra CV-ului"));
+        .append("   modificarile facute asupra CV-ului"));
       resetCVButton.button();
-      resetCVButton.find("span").css("font-size", "18px");
+      resetCVButton.find("span").css("font-size", "12px");
       $(resetCVButton).click(function(){
 				
 		$.ajax({
