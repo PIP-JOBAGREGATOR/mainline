@@ -4,6 +4,26 @@
 	padding: 0px;
 }
 
+@font-face {
+  font-family : segoeui;
+  src : url(smoothness/fonts/segoeui.ttf) format("truetype");
+}
+
+@font-face {
+  font-family : segoeuib;
+  src : url(smoothness/fonts/segoeuib.ttf) format("truetype");
+}
+
+@font-face {
+  font-family : segoeuii;
+  src : url(smoothness/fonts/SEGOEUII.TTF) format("truetype");
+}
+
+@font-face {
+  font-family : segoeuiz;
+  src : url(smoothness/fonts/SEGOEUIZ.TTF) format("truetype");
+}
+
 body { /*font: 62.5% "Trebuchet MS", sans-serif;*/
 
 }
