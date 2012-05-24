@@ -93,7 +93,7 @@ var app = (function() {
 
     var getCV = function(){
 		$.ajax({
-		"url": /*"http://localhost/cv.json"*/apiURL+"cv/get/",
+		"url": "http://localhost/cv.json"/*apiURL+"cv/get/"*/,
 		"async": true,
 		"type": "get",
 		"data": {"content": ""},
