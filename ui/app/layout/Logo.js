@@ -12,9 +12,22 @@ LayoutManager.Logo = LayoutManager.Logo || {};
         "width": "543px",
         "height": "100px"
       });
-      var right = $("<div>").css({"float": "right", "padding-right": "20px", "padding-top": "5px"});
-
-      right.append("<script type=\"in/Login\" data-onAuth=\"onLinkedInAuth\"></script>")
+      var right = $("<div>").css({
+        "float": "right",
+        "padding-right": "20px",
+        "padding-top": "5px",
+        //"position": "relative",
+        //"top": "10px"
+      });
+      right.append($("<div>").attr("id", "login"));
+      var login = $("<script>").attr({
+          "type": "in/Login",
+          "data-onAuth": "onLinkedInAuth"
+      }).css({
+          "position": "relative",
+          "top": "-30px"
+      });
+      right.append(login);
 
       $(container).append(left).append(right).append( $("<div>").css("clear", "both") );
     };

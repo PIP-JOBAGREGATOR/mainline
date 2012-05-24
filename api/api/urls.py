@@ -8,6 +8,7 @@ from django.conf import settings
 urlpatterns = patterns('',
     (r'^$', 'views.index'),
     (r'^index.html$', 'views.index'),
+    (r'^logout$', 'views.logout'),
     (r'^api/search/$', 'views.search'),
     (r'^api/oauth/$', 'views.oauth'),
     (r'^api/cv/refresh/$', 'views.cv_refresh'),

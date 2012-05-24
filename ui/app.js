@@ -59,7 +59,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				"https://192.168.1.105:8443/api/search/"/*"https://localhost/mock.json"*//*apiURL + "search"*/,
+				apiURL+"search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
