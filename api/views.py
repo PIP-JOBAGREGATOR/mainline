@@ -70,7 +70,7 @@ def parse_node(node):
 def parse_cv(cv):
     cv_string = " ".join(parse_node(cv))   
     import subprocess
-    output = subprocess.check_output(["java", "-jar", "/home/tibi/mainline/api/resumeAnalize.jar", "automatica calculatoare"])
+    output = subprocess.check_output(["java", "-jar", "/home/bogdan/mainline/api/resumeAnalize.jar", "automatica calculatoare"])
     return output.split(' ')
 
 def process_description(description):

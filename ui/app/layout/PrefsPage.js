@@ -48,7 +48,7 @@ LayoutManager.PrefsPage = {};
       $(resetCVButton).click(function(){
 				
 		$.ajax({
-		"url": "http://localhost/cv/refresh/",
+		"url": "https://localhost:8443/api/cv/refresh/",
 		"async": true,
 		"type": "post",
 		"data": {"content": ""},

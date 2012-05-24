@@ -3,7 +3,7 @@
 var app = (function() {	
 	var hostname = window.location.hostname;
 	if (hostname.length == 0) {
-		hostname = "http://localhost";
+		hostname = "https://localhost:8443";
 	}
 	var apiURL = hostname + "/api/";
 	
@@ -41,7 +41,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				/*"http://192.168.1.101:8000/api/search/"*/"http://localhost/mock.json"/*apiURL + "search"*/,
+				apiURL+"search/"/*"https://localhost/mock.json"*//*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -75,7 +75,7 @@ var app = (function() {
 
     var getCV = function(){
 		$.ajax({
-		"url": "http://localhost/cv/get/",
+		"url": apiURL+"cv/get/",
 		"async": true,
 		"type": "post",
 		"data": {"content": ""},
@@ -97,7 +97,7 @@ var app = (function() {
 		var json = buildQueryJSON(jsonOb, 0);
 		
 		$.ajax({
-		"url": "http://localhost/cv/set/",
+		"url": apiURL+"cv/set/",
 		"async": true,
 		"type": "post",
 		"data": {"content": json},

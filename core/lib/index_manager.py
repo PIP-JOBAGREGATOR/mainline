@@ -19,7 +19,8 @@ class IndexManager():
         self.reader = IndexReader.open(self.store, False)
 
     def doc_to_dict(self, doc):
-        fields = self.reader.getFieldNames(IndexReader.FieldOption.ALL)
+        #fields = self.reader.getFieldNames(IndexReader.FieldOption.ALL)
+ 	fields = ["title","description","url"]
         job_dict = {}
         for field in fields:
             try:
