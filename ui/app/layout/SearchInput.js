@@ -606,7 +606,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
           var root = pagedInputContainer;
           var rez = {};
 
-          for (var i = 1; i < root.childNodes[0].childNodes[0].childNodes[0].childNodes.length; ++i) {
+          for (var i = 2; i < root.childNodes[0].childNodes[0].childNodes[0].childNodes.length; ++i) {
             var el = root.childNodes[0].childNodes[0].childNodes[0].childNodes[i].childNodes[1];
             var ser = el.serialize();
             for (var pr in ser) {

@@ -13,7 +13,6 @@ var LayoutManager = LayoutManager || {};
 			"height" : logo.logoHeight + "px",
 			"position" : "absolute",
             "background": "url(images/top.png) no-repeat center",
-            "background-size": "100%",
 			//"background-color" : "#3B5998",
 			"border-bottom": "solid 2px black",
 			"font-size": "45px", 
