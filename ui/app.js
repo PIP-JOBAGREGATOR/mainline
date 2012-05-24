@@ -75,17 +75,20 @@ var app = (function() {
 
     var getCV = function(){
 		$.ajax({
-		"url": apiURL+"cv/get/",
+		"url": /*"http://localhost/cv.json"*/apiURL+"cv/get/",
 		"async": true,
-		"type": "post",
+		"type": "get",
 		"data": {"content": ""},
 		"success": function (data, textStatus, jqXHR) {
 			if (typeof(data) == "string") {
 				pageAPI.cvInputAPI.setCV(JSON.parse(data));
 			}
-			else {
-				window.console.error("Rezultat aiurea");
+			else if (typeof(data) == "object"){
+              pageAPI.cvInputAPI.setCV(data);
 			}
+            else {
+			  window.console.error("Rezultat aiurea");
+            }
 		},
 		"error": function(jqXHR, textStatus, errorThrown) {
 			window.console.log("A crapat : " + errorThrown);

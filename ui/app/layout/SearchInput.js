@@ -41,6 +41,8 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 	var searchButton = null;
 	var searchInput = null;
 
+    var populateCv = null;
+
 	var buildSearchBar = function(container) {
 		var searchBar = container;
 		searchButton = document.createElement("div");
@@ -89,7 +91,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		var textFieldLabel = ["Nume", "Prenume", "Numar de telefon", "Adresa", "Sumar", "Interese", 
 		                      "Industrie","Titlu", "Limbi", "E-mail", "Publicatii", "Aptitudini", "Certificari", "Cursuri"];
 
-		var buildInputWithTitle = function(title, tip, opt) {
+		var buildInputWithTitle = function(title, tip, opt, value) {
 			var divCSS = {
 					"margin-bottom": "3px",
 				};
@@ -98,7 +100,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 				.addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only").append(title);
 
 			var textField = document.createElement("input");
-			$(textField).attr("type", "text");
+			$(textField).attr({"type": "text", "value": value});
 			$(textField).css({
 				"width": "65%",
 				"border": "0px"
@@ -121,10 +123,65 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		};
 
 		var buildAndAddFields = function(label, container) {
-			if (textFieldLabel.indexOf(label) != -1) {
-				//Trebuie sa adaug numai un textfield
+          var populate = window["useCV"];
+
+			container.parentElement["nameOfField"] = label;
+            if (textFieldLabel.indexOf(label) != -1) {
+				
+                //Trebuie sa adaug numai un textfield
 				var textField = document.createElement("input");
-				$(textField).attr("type", "text");
+				var val = "";
+                if (populate) {
+                  if (stringFields.indexOf(label) != -1) {
+                    val = window.theCV[cvMapping[label]];
+                  } else if (label == "Numar de telefon") {
+                    val = window.theCV.phoneNumbers.values[0].phoneNumber;
+                  }
+                  else if (label == "E-mail") {
+                    val = window.theCV.imAccounts.values[0].imAccountName;
+                  }
+                  else if (label == "Publicatii") {
+                    var dd = window.theCV.publications.values;
+                    if (dd) {
+                      for (var i = 0; i < dd.length; ++i) {
+                        val += dd[i].title + " ; ";
+                      }
+                    }
+                  }
+                  else if (label == "Limbi") {
+                    var dd = window.theCV.languages.values;
+                    if (dd) {
+                      for (var i = 0; i < dd.length; ++i) {
+                       val += dd[i].language.name + " ; ";
+                      }
+                    }
+                  }
+                  else if (label == "Aptitudini") {
+                    var dd = window.theCV.skills.values;
+                    if (dd) {
+                      for (var i = 0; i < dd.length; ++i) {
+                       val += dd[i].skill.name + ", ";
+                      }
+                    }
+                  }
+                  else if (label == "Certificari") {
+                    var dd = window.theCV.certification.values;
+                    if (dd) {
+                      for (var i = 0; i < dd.length; ++i) {
+                        val += dd[i].name + " , ";
+                      }
+                    }
+                  }
+                  else if (label == "Cursuri") {
+                    var dd = window.theCV.courses.values;
+                    if (dd) {
+                      for (var i = 0; i < dd.length; ++i) {
+                        val += dd[i].name;
+                      }
+                    }
+                  }
+                }
+                $(textField).attr({"type": "text", "value": val});
 				$(textField).css({
 					"width": "100%"
 				});
@@ -135,36 +192,72 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 			}
 			else if (label == "Data nasterii") {
+              var val = "";
+              if (populate) {
+                var dd = window["theCV"].dateOfBirth;
+                val = dd.month + "/" + dd.day + "/" + dd.year;
+              }
 				var input = null;
-				$(container).append((input = $("<input>").attr("type", "text")
+				$(container).append((input = $("<input>").attr({"type": "text", "value" : val})
 						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").datepicker()));
-				input.focus();
+				if (!populate)
+                  input.focus();
 			}
 			else if (label == "Pozitii anterioare") {
-				positionsArr.push(container);
+			  var val = {
+                "titlu" : "",
+                "sdate" : "",
+                "edate": "",
+                "nume": "",
+                "descr": "Descriere"
+              };
+              
+              if (populate) {
+                var dd = window.theCV.positions.values[window["countValue"]];
+                val["titlu"] = dd.title;
+                val["sdate"] = dd.startDate.month + "/1/" + dd.startDate.year;
+                val["edate"] = dd.endDate.month + "/1/" + dd.endDate.year;
+                val["nume"] = dd.company.name;
+                val["descr"] = dd.summary;
+              }
+
+              positionsArr.push(container);
 
 				var divCSS = {
 					"margin-bottom": "3px",
 				};
 
 
-				$(container).append($("<div>").css(divCSS).append(buildInputWithTitle("Titlu")));
+				$(container).append($("<div>").css(divCSS).append(buildInputWithTitle("Titlu", null, null, val["titlu"])));
 
 				$(container).append($("<div>").css(divCSS).append(
-						buildInputWithTitle("Data inceput", "datepicker")
+						buildInputWithTitle("Data inceput", "datepicker", null, val["sdate"])
 				).append(
-						buildInputWithTitle("Data sfarsit", "datepicker")
+						buildInputWithTitle("Data sfarsit", "datepicker", null, val["edate"])
 				));
 
-				$(container).append($("<div>").css(divCSS).append(buildInputWithTitle("Nume companie")));
+				$(container).append($("<div>").css(divCSS).append(buildInputWithTitle("Nume companie", null, null, val["nume"])));
 
 				$(container).append($("<div>").css(divCSS).append(
-						$("<textarea>").attr({"value": "Descriere"})
+						$("<textarea>").attr({"value": val["descr"]})
 						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").css({"width": "100%", "height": "100px"})
 						.change(searchCallback)
 				));
 			}
 			else if (label == "Educatie") {
+                var val = {
+                  "scoala": "",
+                  "domeniu": "",
+                  "grad": ""
+                };
+
+                if (populate) {
+                  var dd = window.theCV.educations;
+                  val["scoala"] = dd.values[window["countValue"]].schoolName;
+                  val["domeniu"] = dd.values[window["countValue"]].fieldOfStudy;
+                  val["grad"] = dd.values[window["countValue"]].degree;
+                }
+
 				educationsArr.push(container);
 				var divCSS = {
 						"margin-bottom": "3px",
@@ -172,13 +265,13 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 					};
 
 					$(container).append($("<div>").css(divCSS).append(
-						buildInputWithTitle("Nume inst. de inv.")
+						buildInputWithTitle("Nume inst. de inv.", null, null, val["scoala"])
 					));
 
 					$(container).append($("<div>").css(divCSS).append(
-							buildInputWithTitle("Dom. de studiu")
+							buildInputWithTitle("Dom. de studiu", null, null, val["domeniu"])
 					).append(
-							buildInputWithTitle("Gradul", "autocomplete", {"source": ["Gimnaziu", "Liceu","Licenta", "Master", "Doctorat"], "minLength": 0})
+							buildInputWithTitle("Gradul", "autocomplete", {"source": ["Gimnaziu", "Liceu","Licenta", "Master", "Doctorat"], "minLength": 0}, val["grad"])
 					).append(
 							$("<div>").css("clear", "both")
 					));
@@ -323,7 +416,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		};
 
-		var buildCombobox = function(values, usedValues) {
+		var buildCombobox = function(values, usedValues, val) {
 			var select = document.createElement("select");
 
 			var option = document.createElement("option");
@@ -332,7 +425,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			$(select).append(option);
 
 			for(var i = 0; i < values.length; ++i) {
-				if (usedValues.hasOwnProperty(values[i]) == true)
+				if (usedValues[values[i]] == true)
 					continue;
 				var option = document.createElement("option");
 				$(option).attr("value", values[i]);
@@ -355,12 +448,20 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			return select.nextSibling;
 		};
 
-		var buildField = function () {
+		var buildField = function (val, page) {
 			var fieldContainer = document.createElement("div");
 			var left = document.createElement("div");
 			var right = document.createElement("div");
 
-			$(fieldContainer).css({
+            fieldContainer["nameOfField"] = "";
+			fieldContainer["remove"] = function() {
+              var parent = fieldContainer.parentElement;
+              parent.removeChild(fieldContainer);
+              usedFields[fieldContainer["nameOfField"]] = false;
+              window.console.log("Am sters " + fieldContainer["nameOfField"]);
+            };
+
+            $(fieldContainer).css({
 				"width": (pagedContainer.parameters["containerWidth"] - 45) + "px",
 				"position": "relative",
 				"left": "10px",
@@ -384,7 +485,27 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			});
 			$(fieldContainer).append(left).append(right).append( $(document.createElement("div")).css("clear", "both"));
 
-			$(left).append(buildCombobox(fields, usedFields));
+            var del = $("<span>").css({
+              "float": "left",
+              "position": "relative",
+              "top": "10px",
+            }).addClass("ui-button-icon-primary ui-icon ui-icon-close").click(function() {
+              fieldContainer.remove();
+            });
+            var combo = $(buildCombobox(fields, usedFields)).css("float", "left");
+            $(left).append(combo).append(del).append( $("<div>").css("clear", "both") );
+
+            if (val) {
+              $(page).append(fieldContainer);
+
+              var theInput = combo[0].childNodes[0];
+              $(theInput).attr("value", val).keyup();
+              var e = jQuery.Event("keydown", { keyCode: 40 });
+              $(theInput).trigger(e);
+              $(theInput).trigger(jQuery.Event("keydown", { keyCode: 40 }));
+              $(theInput).trigger(jQuery.Event("keydown", { keyCode: 13 }));
+
+            }
 
 			//TODO De aici nu trebuie sa mai fie nimic. Ce e in dreapta se construieste dupa ce se alege un camp
 
@@ -409,6 +530,43 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 
 		pagedContainer.addPage(currentPage);
+
+        populateCv = function(cv) {
+          window["theCV"] = cv;
+          window["useCV"] = true;
+          for (var pr in cv) {
+            var label = null;
+            for (var pr2 in cvMapping) {
+              if (cvMapping[pr2] == pr) {
+                label = pr2;
+                break;
+              }
+            }
+            if (label == null)
+              continue;
+            window.console.log("Construiesc " + label);
+            if (label == "Pozitii anterioare") {
+              for (var i = 0; i < cv.positions["_total"]; ++i) {
+                window["countValue"] = i;
+                buildField(label, currentPage);
+              }
+              window["CountValue"] = null;
+            }
+            else if (label == "Educatie") {
+              for (var i = 0; i < cv.educations["_total"]; ++i) {
+                window["countValue"] = i;
+                buildField(label, currentPage);
+              }
+              window["countValue"] = null;
+
+            }
+            else
+              buildField(label, currentPage);
+          }
+          
+
+          window["useCV"] = false;
+        };
 	};
 
 	/**
@@ -448,7 +606,12 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             var el = root.childNodes[0].childNodes[0].childNodes[0].childNodes[i].childNodes[1];
             var ser = el.serialize();
             for (var pr in ser) {
-              rez[pr] = ser[pr];
+              if (rez.hasOwnProperty(pr) == false)
+                rez[pr] = ser[pr];
+              else {
+                rez[pr]["_total"]++;
+                rez[pr]["values"].push(ser[pr]["values"][0]);
+              }
             }
           }
 
@@ -474,38 +637,11 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 				searchCallback = callback;
 			},
 			"setCV": function(CV){
-				alert("panda");
+				//Aici completez CV de la LinkedIn in interfata
+                populateCv(CV);
 			},
 			"saveCV" : function(){
-				return {
-					"positions": {
-						"_total": positionsArr.length,
-						"values" : (function() {
-							var rez = new Array();
-							for (var i = 0; i < positionsArr.length; ++i) {
-								var p = positionsArr[i];
-								rez.push({
-									"title": p.childNodes[0].childNodes[0].childNodes[1].value,
-									"summary": p.childNodes[3].childNodes[0].value
-								});
-							}
-							return rez;
-						})()
-					},
-					"educations": {
-						"_total": educationsArr.length,
-						"values" : (function() {
-							var rez = new Array();
-							for (var i = 0; i < educationsArr.length; ++i) {
-								var p = educationsArr[i];
-								rez.push({
-									"schoolName": p.childNodes[0].childNodes[0].childNodes[1].value
-								});
-							}
-							return rez;
-						})()
-					}
-				};		
+			  return pagedInputContainer.serialize();
 			}
 		};
 	};
