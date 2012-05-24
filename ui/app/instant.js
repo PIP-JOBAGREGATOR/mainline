@@ -56,26 +56,7 @@ Instant = (function() {
 
         $("#login").append(msg);
         $("#login").css({"font-size" : "15px"});
-        $.ajax({
-		"url": "https://192.168.1.105:8443/api/cv/get/",
-		"async": true,
-		"type": "get",
-		"data": {"content": ""},
-		"success": function (data, textStatus, jqXHR) {
-			if (typeof(data) == "string") {
-				pageAPI.cvInputAPI.setCV(JSON.parse(data));
-			}
-			else if (typeof(data) == "object"){
-              pageAPI.cvInputAPI.setCV(data);
-			}
-            else {
-			  window.console.error("Rezultat aiurea");
-            }
-		},
-		"error": function(jqXHR, textStatus, errorThrown) {
-			window.console.log("A crapat : " + errorThrown);
-		}
-		});
+        getCV();
         window.console.log(msg);
       } else {
         msg = "Sorry, an error has occured in logging in.  Please try again.";
