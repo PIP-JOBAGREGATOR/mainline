@@ -59,7 +59,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				"https://192.168.1.105:8443/api/search/"/*"https://localhost/mock.json"*//*apiURL + "search"*/,
+				apiURL+"search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -93,17 +93,20 @@ var app = (function() {
 
     var getCV = function(){
 		$.ajax({
-		"url": "https://192.168.1.105:8443/api/cv/get/",
+		"url": /*"http://localhost/cv.json"*/apiURL+"cv/get/",
 		"async": true,
-		"type": "post",
+		"type": "get",
 		"data": {"content": ""},
 		"success": function (data, textStatus, jqXHR) {
 			if (typeof(data) == "string") {
 				pageAPI.cvInputAPI.setCV(JSON.parse(data));
 			}
-			else {
-				window.console.error("Rezultat aiurea");
+			else if (typeof(data) == "object"){
+              pageAPI.cvInputAPI.setCV(data);
 			}
+            else {
+			  window.console.error("Rezultat aiurea");
+            }
 		},
 		"error": function(jqXHR, textStatus, errorThrown) {
 			window.console.log("A crapat : " + errorThrown);

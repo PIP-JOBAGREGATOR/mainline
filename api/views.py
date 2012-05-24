@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'linkedi
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'ui')))
 
 from job_map import COLLEGE_JOB
-from index_manager import IndexManager
+#from index_manager import IndexManager
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from linkedin_config import *
@@ -154,6 +154,13 @@ def oauth(request):
 
     return response
 
+def logout(request):
+    if 'token' in request.session:
+        del request.session['token']
+
+    return HttpResponse(200)
+
+
 
 def update_cv(pers_id, cv_json):
     response = HttpResponse()
@@ -190,6 +197,9 @@ def update_cv(pers_id, cv_json):
 
 
 def cv_refresh(request):
+    if 'token' not in request.session:
+        return HttpResponse(404)
+
     oauth = request.session['token']
     pers_id = get_id(oauth)
     cv_json = get_cv(oauth)
@@ -201,6 +211,9 @@ def cv_set(request):
     response = HttpResponse()
 
     if request.method == 'POST':
+        if 'token' not in request.session:
+            return HttpResponse(404)
+
         oauth = request.session['token']
         pers_id = get_id(oauth)
         cv_json = request.POST.get('content')
@@ -214,6 +227,9 @@ def cv_set(request):
 
 def cv_get(request):
     response = HttpResponse()
+
+    if 'token' not in request.session:
+        return HttpResponse(404)
 
     oauth = request.session['token']
     pers_id = get_id(oauth)

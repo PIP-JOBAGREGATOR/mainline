@@ -48,13 +48,15 @@ LayoutManager.Menu = LayoutManager.Menu || {};
 			"width" : searchButton.searchHeight+"px",
 			"height" : "7px",
 			"position" : "absolute",
-			"background-color" : "rgb(113,113,113)"
+			"background-color" : "rgb(113,113,113)",
+            "-webkit-transition": "background-color 0.5s"
 		});
 		$(topPrefs).css({
 			"width" : prefsButton.prefsHeight+"px",
 			"height" : "7px",
 			"position" : "absolute",
-			"background-color" : "rgb(170,170,170)"
+			"background-color" : "rgb(170,170,170)",
+            "-webkit-transition": "background-color 0.5s"
 		});
 		$(textSearch).css({
 			"width" : searchButton.searchHeight+"px",
