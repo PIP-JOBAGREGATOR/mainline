@@ -515,7 +515,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		var currentPage = document.createElement("div");
 		var addFieldButton = document.createElement("div");
-		var SaveCVButton = document.createElement("div");
+		SaveCVButton = document.createElement("div");
 		$(pagedContainer.pages).css({
 			"font-size": "62.5%"
 		});
