@@ -113,6 +113,9 @@ var app = (function() {
 		}
 		});
 	};
+
+    window["getCV"] = getCV;
+
 	$(document).ready(bootstrap);
 	$(window).resize(bootstrap);
 	$(document).ready(getCV);
