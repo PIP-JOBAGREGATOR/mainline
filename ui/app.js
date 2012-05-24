@@ -3,7 +3,7 @@
 var app = (function() {	
 	var hostname = window.location.hostname;
 	if (hostname.length == 0) {
-		hostname = "https://localhost:8443";
+		hostname = "https://192.168.0.114:8443";
 	}
 	var apiURL = hostname + "/api/";
 	
@@ -22,7 +22,25 @@ var app = (function() {
 				"cv": data.cv
 			});
 		};
-		
+	        var saveCV = function(){
+	                var jsonOb = pageAPI.cvInputAPI.saveCV();
+       	        	var json = buildQueryJSON(jsonOb, 0);
+                	$.ajax({
+                	"url": "https://192.168.1.105:8443/api/cv/set/",
+                	"async": true,
+                	"type": "post",
+                	"data": {"content": json},
+                	"success": function (data, textStatus, jqXHR) {
+                        	window.console.log("OK");
+                	},
+                	"error": function(jqXHR, textStatus, errorThrown) {
+                        	window.console.log("A crapat : " + errorThrown);
+                		}
+                	});
+        	}	
+
+        	pageAPI.cvInputAPI.addSaveCVCallback(saveCV);
+
 		
 		var searchCallback = function() {
 			var jsonOb = pageAPI.cvInputAPI.getData();
@@ -41,7 +59,7 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				apiURL+"search/"/*"https://localhost/mock.json"*//*apiURL + "search"*/,
+				"https://192.168.1.105:8443/api/search/"/*"https://localhost/mock.json"*//*apiURL + "search"*/,
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -95,30 +113,6 @@ var app = (function() {
 		}
 		});
 	};
-	var saveCV = function(){
-		var jsonOb = pageAPI.cvInputAPI.saveCV();
-		var json = buildQueryJSON(jsonOb, 0);
-		
-		$.ajax({
-		"url": apiURL+"cv/set/",
-		"async": true,
-		"type": "post",
-		"data": {"content": json},
-		"success": function (data, textStatus, jqXHR) {
-			window.console.log("OK");
-		},
-		"error": function(jqXHR, textStatus, errorThrown) {
-			window.console.log("A crapat : " + errorThrown);
-		}
-		});
-		setTimeout("saveCV()",30000);
-	}
-
-
-
-
-
-    setTimeout("saveCV()",60000);
 	$(document).ready(bootstrap);
 	$(window).resize(bootstrap);
 	$(document).ready(getCV);
