@@ -43,6 +43,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 	var SaveCVButton = null;
 
     var populateCv = null;
+    var clearCV = null;
 
 	var buildSearchBar = function(container) {
 		var searchBar = container;
@@ -106,6 +107,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 				"border": "0px"
 			});
 			$(textField).addClass("ui-autocomplete-input ui-widget-content ui-corner-all").change(searchCallback);
+            $(textField).change(searchCallback);
 
 			var theDiv = $("<div>").css(divCSS).addClass("ui-widget-content ui-corner-all");
 			if (tip) {
@@ -181,7 +183,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
                     }
                   }
                 }
-                $(textField).attr({"type": "text", "value": val});
+                $(textField).attr({"type": "text", "value": val}).change(searchCallback);
 				$(textField).css({
 					"width": "100%"
 				});
@@ -199,6 +201,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
               }
 				var input = null;
 				$(container).append((input = $("<input>").attr({"type": "text", "value" : val})
+                        .change(searchCallback)
 						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").datepicker()));
 				if (!populate)
                   input.focus();
@@ -240,6 +243,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 				$(container).append($("<div>").css(divCSS).append(
 						$("<textarea>").attr({"value": val["descr"]})
+                        .change(searchCallback)
 						.addClass("ui-autocomplete-input ui-widget-content ui-corner-all").css({"width": "100%", "height": "100px"})
 						.change(searchCallback)
 				));
@@ -513,35 +517,23 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 			return fieldContainer;
 		};
 
-		var currentPage = document.createElement("div");
-		var addFieldButton = document.createElement("div");
-		SaveCVButton = document.createElement("div");
-		$(pagedContainer.pages).css({
-			"font-size": "62.5%"
-		});
-
-		$(addFieldButton).button({
-			"label" : "Adauga camp la CV"
-		}).attr("id", "addFieldButton");
-		$(SaveCVButton).button({
-			"label" : "Salveaza CV"
-		});
-		$(addFieldButton).click(function() {
-          var fff = $(buildField());
-          fff.insertBefore($(addFieldButton));
-		});
-
-		$(currentPage).append(addFieldButton);
-
-		$(currentPage).append(SaveCVButton);
-		pagedContainer.addPage(currentPage);
+        clearCV = function() {
+          for (var i = 0; i < currentPage.childNodes.length; ++i) {
+            if (currentPage.childNodes[i].hasOwnProperty("remove")) {
+              currentPage.childNodes[i].remove();
+              --i;
+            }
+          }
+        };
 
         populateCv = function(cv) {
+          clearCV();
+
           window["theCV"] = cv;
           window["useCV"] = true;
-          for (var pr in cv) {
+          for (var pr2 in cvMapping) {
             var label = null;
-            for (var pr2 in cvMapping) {
+            for (var pr in cv) {
               if (cvMapping[pr2] == pr) {
                 label = pr2;
                 break;
@@ -572,11 +564,41 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
               buildField(label, currentPage);
             }
           }
-          
+
 
           window["useCV"] = false;
+          searchCallback();
         };
-	};
+
+
+
+
+		var currentPage = document.createElement("div");
+		var addFieldButton = document.createElement("div");
+		SaveCVButton = document.createElement("div");
+		$(pagedContainer.pages).css({
+			"font-size": "62.5%"
+		});
+
+		$(addFieldButton).button({
+			"label" : "Adauga camp la CV"
+		}).attr("id", "addFieldButton");
+		$(SaveCVButton).button({
+			"label" : "Salveaza CV"
+		});
+		$(addFieldButton).click(function() {
+          var fff = $(buildField());
+          fff.insertBefore($(addFieldButton));
+		});
+
+		$(currentPage).append(addFieldButton);
+
+		$(currentPage).append(SaveCVButton);
+        $(currentPage).append( $("<div>").button({"label": "Sterge CV"}).click(clearCV) );
+
+		pagedContainer.addPage(currentPage);
+
+      };
 
 	/**
 	 * Builds the whole cvInput and appends it to the container given as
