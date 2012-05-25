@@ -7,6 +7,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 	var buildLivePreview = function(container, searchResults) {
 	  $(container).attr("id", "live-preview-container");
       $(container).css("-webkit-transition", "opacity 0.3s");
+
       var containerWidth = parseInt($(container).css("width"));
 		var containerHeight = parseInt($(container).css("height"));
 

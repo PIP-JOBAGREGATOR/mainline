@@ -44,7 +44,10 @@ var app = (function() {
 
 		var searchCallback = function() {
 
-          var jsonOb = pageAPI.cvInputAPI.getData();
+            $("#live-preview-container").css("opacity", "0.5");
+            $("#loading-animation").css("opacity", "1.0");
+
+            var jsonOb = pageAPI.cvInputAPI.getData();
 			var json = buildQueryJSON(jsonOb, 0);
 			
 
@@ -54,6 +57,8 @@ var app = (function() {
 				"type": "post",
 				"data": {"content": json},
 				"success": function (data, textStatus, jqXHR) {
+                    $("#live-preview-container").css("opacity", "1.0");
+                    $("#loading-animation").css("opacity", "0.0");
 
 					if (typeof(data) == "string") {
 						pageAPI.livePreviewAPI.update(JSON.parse(data));
@@ -66,7 +71,8 @@ var app = (function() {
 					}
 				},
 				"error": function(jqXHR, textStatus, errorThrown) {
-
+                    $("#live-preview-container").css("opacity", "1.0");
+                    $("#loading-animation").css("opacity", "0.0");
 					window.console.log("A crapat : " + errorThrown);
 				}
 			});
