@@ -152,3 +152,7 @@ PagedContainer.prototype.addPage = function(page) {
 	this.updateParameters();
 	
 };
+
+PagedContainer.prototype.setValue = function(value) {
+  $(this.scrollBar).slider("value", value);
+};
