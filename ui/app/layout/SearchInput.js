@@ -524,6 +524,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
               --i;
             }
           }
+          pagedContainer.setValue(100);
         };
 
         populateCv = function(cv) {

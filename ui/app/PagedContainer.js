@@ -72,6 +72,18 @@ var PagedContainer = function(container) {
 		},
 		"change": function(event,ui) {
 			window.console.log("change la : " + ui.value);
+            
+            var sliderElement = ui.handle.parentElement;
+			var containerElement = sliderElement.parentElement;
+			var pagedContainer = containerElement.pagedContainer;
+			var value = ui.value;
+			
+			var newCssTop = (-1*Math.round((100 - value)*pagedContainer.parameters.allPagesHeight/100));
+			
+			$(containerElement.pagedContainer.pages).css("top",newCssTop + "px");
+			
+			window.console.log("slide : " + ui.value);
+
 		}
 	});
 	
