@@ -563,10 +563,14 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
                 buildField(label, currentPage);
               }
               window["countValue"] = null;
-
             }
-            else
+            else if (label == "Aptitudini") {
+              if (cv.skills._total != 0)
+                buildField(label, currentPage);
+            }
+            else {
               buildField(label, currentPage);
+            }
           }
           
 
