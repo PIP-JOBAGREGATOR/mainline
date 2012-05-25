@@ -20,6 +20,9 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
           var appendtitlu = titlu.length > 40 ? " ..." : "";
           var appenddescriere = descriere.length > 40 ? " ..." : "";
           var appendlink = link.length > 70 ? " ..." : "";
+
+          titlu = titlu.charAt(0).toUpperCase() + titlu.slice(1).toLowerCase();
+          titlu.replace(/c\/c\+\+/gi, "C/C++");
           
           var cell = $("<div>").css({
             "width": cellWidth + "px",
