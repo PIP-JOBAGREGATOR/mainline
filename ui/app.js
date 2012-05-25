@@ -60,7 +60,7 @@ var app = (function() {
 					}
 				})(),*/
 				//"url": window.hostname + "/api/search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
-                "url" : "http://localhost/mock.json",
+                "url" : window.hostname+"/api/search/",
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -88,6 +88,7 @@ var app = (function() {
 		
 		pageAPI.cvInputAPI.addSearchCallback(searchCallback);
 		searchCallback();
+    		window["searchCallback"] = searchCallback;
 		
 	};
 	
@@ -119,7 +120,6 @@ var app = (function() {
 
 	$(document).ready(bootstrap);
 	$(window).resize(bootstrap);
-	$(document).ready(getCV);
 
 })();
 
