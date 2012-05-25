@@ -15,8 +15,11 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		// Creates a cell with a job
 		var createCell = function(cellData) {
 		  var titlu = cellData.titlu == "" ? "Fara titlu" : cellData.titlu;
-          var descriere = cellData.descriere == "" ? "Jobul nu contine o descriere" : cellData.descriere.substr(0, 200) + " ...";
+          var descriere = cellData.descriere == "" ? "Jobul nu contine o descriere" : cellData.descriere;
           var link = cellData.link;
+          var appendtitlu = titlu.length > 40 ? " ..." : "";
+          var appenddescriere = descriere.length > 40 ? " ..." : "";
+          var appendlink = link.length > 70 ? " ..." : "";
           
           var cell = $("<div>").css({
             "width": cellWidth + "px",
@@ -40,11 +43,11 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
           })).append($("<div>").css({
             "position": "relative",
             "top": "10px",
-            "left": "15px"
+            "left": "15px",
           }).append("Descriere")).append($("<div>").css({
             "position": "relative",
             "top": "69px",
-            "left": "15px"
+            "left": "15px",
           }).append("Link"));
 
           var right = $("<div>").css({
@@ -78,8 +81,8 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             "font-style" : "italic",
             "padding-top" : "5px",
             "margin-bottom" : "5px",
-            "text-indent": "30px"
-          }).append(titlu));
+            "text-indent": "30px",
+          }).append(titlu.substr(0,40) + appendtitlu));
           right.append( $("<div>").css({
             "margin-left": "auto",
             "margin-right": "auto",
@@ -95,14 +98,15 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             "padding-left": "10px",
             "height": "80px",
             "overflow": "hidden",
-            "text-indent": "30px"}).append(descriere))
+            "text-indent": "30px",
+          }).append(descriere.substr(0,200) + appenddescriere))
             .append( $("<div>").css({
             
             }).append( $("<a>").attr({"href": link, "target": "_blank"}).click(doOnClick)
               .css({
                 "font-size" : "11pt",
                 "padding-left": "10px",
-              }).append(link)) ));
+              }).append(link.substr(0,70) + appendlink)) ));
 
           return cell[0];
         };
