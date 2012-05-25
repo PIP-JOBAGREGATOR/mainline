@@ -115,9 +115,22 @@ var LayoutManager = LayoutManager || {};
         });
 
 
+        var loadAnim = $("<img>").attr({
+          "src": "images/loading.gif",
+          "id": "loading-animation"})
+        .css({
+          "position" : "fixed",
+          "left" : (Environment.getWindowWidth() * 0.75 - 10) + "px",
+          "top": (Environment.getWindowHeight() * 0.5 - 10) + "px",
+          "opacity": "0.0",
+          "-webkit-transition" : "opacity 0.3s"
+        });
+
+
 		$(main).append(mainInterior);
 		$(document.body).append(main);
 		$(document.body).append(corner);
+        $(document.body).append(loadAnim);
 		LayoutManager.PrefsPage.build(prefsDiv);
 		return LayoutManager.SearchPage.build(searchDiv);
 	};

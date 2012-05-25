@@ -208,7 +208,7 @@ def update_cv(pers_id, cv_json):
     else:
         response.content = 'refresh resume failed pers_id %s cv_json %s' % (pers_id, cv_json)
         response.status_code = 404
-
+    print response	
     return response
 
 

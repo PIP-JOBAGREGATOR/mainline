@@ -43,16 +43,23 @@ var app = (function() {
 	  pageAPI.cvInputAPI.addSaveCVCallback(saveCV);
 
 		var searchCallback = function() {
+
+            $("#live-preview-container").css("opacity", "0.5");
+            $("#loading-animation").css("opacity", "1.0");
+
             var jsonOb = pageAPI.cvInputAPI.getData();
 			var json = buildQueryJSON(jsonOb, 0);
-			window.console.log("searchCallback() :  " + json);
+			
 
             $.ajax({
-			    "url": window.hostname + "/api/search/",
 			    "async": true,
+			    "url": window.hostname + "/api/search/",
 				"type": "post",
 				"data": {"content": json},
 				"success": function (data, textStatus, jqXHR) {
+                    $("#live-preview-container").css("opacity", "1.0");
+                    $("#loading-animation").css("opacity", "0.0");
+
 					if (typeof(data) == "string") {
                        var ob = data == "" ? {} : JSON.parse(data);
 						pageAPI.livePreviewAPI.update(ob);
@@ -65,6 +72,8 @@ var app = (function() {
 					}
 				},
 				"error": function(jqXHR, textStatus, errorThrown) {
+                    $("#live-preview-container").css("opacity", "1.0");
+                    $("#loading-animation").css("opacity", "0.0");
 					window.console.log("A crapat : " + errorThrown);
 				}
 			});
@@ -73,7 +82,8 @@ var app = (function() {
 
 		pageAPI.cvInputAPI.addSearchCallback(searchCallback);
 		searchCallback();
-
+    		window["searchCallback"] = searchCallback;
+		
 	};
 
 
@@ -104,7 +114,6 @@ var app = (function() {
 
 	$(document).ready(bootstrap);
 	$(window).resize(bootstrap);
-	$(document).ready(getCV);
 
 })();
 

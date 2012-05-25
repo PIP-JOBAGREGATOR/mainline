@@ -501,7 +501,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
             if (val) {
               //$(page).append(fieldContainer);
-              $(fieldContainer).insertBefore($("#addFieldButton"));
+              $(fieldContainer).insertBefore( $("#addFieldButton")[0].parentElement );
 
               var theInput = combo[0].childNodes[0];
               $(theInput).attr("value", val).keyup();
@@ -588,13 +588,17 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 		});
 		$(addFieldButton).click(function() {
           var fff = $(buildField());
-          fff.insertBefore($(addFieldButton));
+          fff.insertBefore($(addFieldButton.parentElement));
 		});
 
-		$(currentPage).append(addFieldButton);
 
-		$(currentPage).append(SaveCVButton);
-        $(currentPage).append( $("<div>").button({"label": "Sterge CV"}).click(clearCV) );
+        var buttons = $("<div>").css({
+          "margin-left": "20px",
+          "margin-top": "20px"
+        }).append(addFieldButton).append(SaveCVButton)
+        .append($("<div>").button({"label": "Sterge CV"}).click(clearCV) );
+
+        $(currentPage).append(buttons);
 
 		pagedContainer.addPage(currentPage);
 
