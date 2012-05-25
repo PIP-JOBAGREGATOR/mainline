@@ -62,7 +62,7 @@ Instant = (function() {
                 + " "
                 + profile.values[0].lastName
                 + "</strong> <br/>"
-                + "&nbsp;[<a onclick='Instant().doLogout();' style='color:red'>Deconectare</a>]"
+                + "&nbsp;[<a onclick='Instant().doLogout();' style='color:red;cursor:pointer'>Deconectare</a>]"
                 + "</div>"
                 + "<img src=" + data + " height='50%' style='margin-left:10px; margin-top:10px; border-style:solid; border-width:1px; border-color:white'></img>"
                 $("#login").append(msg);
@@ -78,7 +78,7 @@ Instant = (function() {
                 + " "
                 + profile.values[0].lastName
                 + "</strong> <br/>"
-                + "&nbsp;[<a onclick='Instant().doLogout();' style='color:red'>Deconectare</a>]"
+                + "&nbsp;[<a onclick='Instant().doLogout();' style='color:red;cursor:ponter'>Deconectare</a>]"
                 + "</div>"
                 + "<img src=" + d + " height='50%' style='margin-left:10px; margin-top:10px; border-style:solid; border-width:1px; border-color:white'></img>"
                 $("#login").append(msg);
