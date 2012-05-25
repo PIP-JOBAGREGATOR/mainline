@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'linkedi
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'ui')))
 
 from job_map import COLLEGE_JOB
-#from index_manager import IndexManager
+from index_manager import IndexManager
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from linkedin_config import *
