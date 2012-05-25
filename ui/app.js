@@ -49,7 +49,7 @@ var app = (function() {
 
             $.ajax({
 			    "url": window.hostname + "/api/search/",
-				"async": true,
+			    "async": true,
 				"type": "post",
 				"data": {"content": json},
 				"success": function (data, textStatus, jqXHR) {
@@ -80,7 +80,7 @@ var app = (function() {
 		$.ajax({
 		"url": window.hostname + "/api/cv/get/",
 		"async": true,
-		"type": "get",
+		"type": "post",
 		"data": {"content": ""},
 		"success": function (data, textStatus, jqXHR) {
 			if (typeof(data) == "string") {

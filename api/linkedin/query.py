@@ -30,6 +30,7 @@ def get_id(credentials):
         if resp['status'] == '200':
             return json.loads(content)["id"]
         else:
+            print "a crapat linkedin %s" %(resp['status'])
             return None
     except:
         return None
@@ -47,6 +48,7 @@ def get_cv(credentials):
         if resp['status'] == '200':
             return content
         else:
+            print "a crapat linkedin %s" %(resp['status'])
             return None
     except:
         return None
