@@ -52,3 +52,24 @@ def get_cv(credentials):
             return None
     except:
         return None
+
+def get_profile_pic(credentials):
+    try:
+        client = get_client(credentials)
+        resp, content = client.request(
+            uri = "https://api.linkedin.com/v1/people/~:(picture-url)?format=json",
+            method = "GET"
+        )
+
+        if resp['status'] == '200':
+            temp = json.loads(content)
+            if 'pictureUrl' in temp:
+                print "profile pic url: %s" % json.loads(content)['pictureUrl']
+                return json.loads(content)['pictureUrl']
+            else:
+                return ""
+        else:
+            print "nu a luat profile pic"
+            return None
+    except:
+        return None
