@@ -43,16 +43,20 @@ var app = (function() {
 	  pageAPI.cvInputAPI.addSaveCVCallback(saveCV);
 
 		var searchCallback = function() {
-            var jsonOb = pageAPI.cvInputAPI.getData();
+          $("#live-preview-container").css("opacity", "60");
+
+          var jsonOb = pageAPI.cvInputAPI.getData();
 			var json = buildQueryJSON(jsonOb, 0);
 			window.console.log("searchCallback() :  " + json);
 
             $.ajax({
-			    "url": window.hostname + "/api/search/",
+			    "url": "http://localhost/mock.json"/*window.hostname + "/api/search/"*/,
 			    "async": true,
 				"type": "post",
 				"data": {"content": json},
 				"success": function (data, textStatus, jqXHR) {
+                    $("#live-preview-container").css("opacity", "100");
+
 					if (typeof(data) == "string") {
 						pageAPI.livePreviewAPI.update(JSON.parse(data));
 					}
@@ -64,6 +68,8 @@ var app = (function() {
 					}
 				},
 				"error": function(jqXHR, textStatus, errorThrown) {
+                    $("#live-preview-container").css("opacity", "100");
+
 					window.console.log("A crapat : " + errorThrown);
 				}
 			});

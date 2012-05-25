@@ -5,7 +5,9 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 (function() {
 	var buildLivePreview = function(container, searchResults) {
-		var containerWidth = parseInt($(container).css("width"));
+	  $(container).attr("id", "live-preview-container");
+      $(container).css("-webkit-transition", "opacity 0.3s");
+      var containerWidth = parseInt($(container).css("width"));
 		var containerHeight = parseInt($(container).css("height"));
 
 		var cellWidth = containerWidth - 40;
@@ -23,13 +25,13 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
           titlu = titlu.charAt(0).toUpperCase() + titlu.slice(1).toLowerCase();
           titlu.replace(/c\/c\+\+/gi, "C/C++");
-          
+
           var cell = $("<div>").css({
             "width": cellWidth + "px",
             "height": "150px",
             "margin-top": "20px"
           }).addClass("job-container");
-          
+
           var left = $("<div>").css({
             "float": "left",
             "height": "100%",
@@ -59,10 +61,11 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             "width": (cellWidth - stanga) + "px",
             "background-color": "white"
           });
-          
+
          var doOnClick = function() {
             right.css({
               "-webkit-transform": "rotate(2deg)",
+              "-webkit-transition": "-webkit-transform 0.5s",
               "position": "relative",
               "left": "3px",
               "top": "13px",
@@ -74,10 +77,11 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
             cell.removeClass("job-container").css({
               "margin-top": "20px"
-            })
+            });
 
-         };
-          cell.append(left).append(right).append( $("<div>").css("clear", "both") );
+
+          };
+          cell.append(left).append(right).append( $("<div>").css("clear", "both") ).click(doOnClick);
 
           right.append($("<p>").css({
             "font-size" : "18pt",
@@ -105,7 +109,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
           }).append(descriere.substr(0,200) + appenddescriere))
             .append( $("<div>").css({
             
-            }).append( $("<a>").attr({"href": link, "target": "_blank"}).click(doOnClick)
+            }).append( $("<a>").attr({"href": link, "target": "_blank"})
               .css({
                 "font-size" : "11pt",
                 "padding-left": "10px",
