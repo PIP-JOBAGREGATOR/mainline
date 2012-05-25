@@ -67,12 +67,12 @@ class IndexManager():
     def get_last_jobs(self, count=20, offset=0):
         conn = MySQLdb.connect("localhost","root","root","job_agregator")
 
-        query = "SELECT job_info FROM jobs ORDER BY `last_update` LIMIT %s, %s"
+        query = "SELECT DISTINCT hash, job_info FROM jobs ORDER BY `last_update` LIMIT %s, %s"
         cursor = conn.cursor()
         cursor.execute(query, [offset, count])
         results = []
         for row in cursor.fetchall():
-            job_info = json.loads(row[0])
+            job_info = json.loads(row[1])
             results.append(job_info)
         return results
 
