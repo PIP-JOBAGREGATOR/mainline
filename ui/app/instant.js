@@ -48,11 +48,11 @@ Instant = (function() {
     function showMsg(profile, isSuccess) {
       if (isSuccess) {
         Instant().isLoggedIn = true;
-        msg = "Welcome to Jobotron, <strong>"
+        msg = "Bine ai venit, <strong>"
           + profile.values[0].firstName
           + " "
           + profile.values[0].lastName
-          + "</strong> [<a onclick='Instant().doLogout();' href='#'>Sign Out</a>]"
+          + "</strong> [<a onclick='Instant().doLogout();' style='color:red'>Deconectare</a>]"
 
         $("#login").append(msg);
         $("#login").css({"font-size" : "15px"});

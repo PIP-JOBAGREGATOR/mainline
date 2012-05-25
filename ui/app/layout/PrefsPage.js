@@ -23,7 +23,7 @@ LayoutManager.PrefsPage = {};
         .append("Cat de des doresti sa primesti notificari cu job-uri noi care ti se potrivesc ?") );
       
       var radio = $("<div>").css({"position": "relative", "left": "80px", "top": "20px"}).append( 
-        $("<input>").attr({"type": "radio", "id": "niciodata", "name": "notif"}) ).append(
+        $("<input>").attr({"type": "radio", "id": "niciodata", "name": "notif"}) ).css({"font-size": "12px"}).append(
         $("<label>").attr("for", "niciodata").append("niciodata")).append(
         $("<input>").attr({"type": "radio", "id": "zilnic", "name": "notif"}) ).append(
         $("<label>").attr("for", "zilnic").append("zilnic")).append(
