@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^api/cv/refresh/$', 'views.cv_refresh'),
     (r'^api/cv/get/$', 'views.cv_get'),
     (r'^api/cv/set/$', 'views.cv_set'),
+    (r'^api/profile_pic/$', 'views.getProfilePic'),
     # Examples:
     # url(r'^$', 'api.views.home', name='home'),
     # url(r'^api/', include('api.foo.urls')),

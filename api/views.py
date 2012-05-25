@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'linkedi
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, 'ui')))
 
 from job_map import COLLEGE_JOB
-from index_manager import IndexManager
+#from index_manager import IndexManager
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from linkedin_config import *
@@ -68,7 +68,7 @@ def parse_node(node):
         return []
 
 def parse_cv(cv):
-    cv_string = " ".join(parse_node(cv))   
+    cv_string = " ".join(parse_node(cv))
     import subprocess
     output = subprocess.check_output(["java", "-jar", "/home/bogdan/mainline/api/resumeAnalize.jar", cv_string])
     return output.split(' ')
@@ -154,12 +154,28 @@ def oauth(request):
 
     return response
 
+
 def logout(request):
     if 'token' in request.session:
         del request.session['token']
 
     return HttpResponse(200)
 
+
+def getProfilePic(request):
+    response = HttpResponse()
+    if 'token' not in request.session:
+        response.content = 'token expired'
+        response.status_code = 404
+        return response
+
+    oauth = request.session['token']
+    uri = get_profile_pic(oauth)
+    if uri is not None:
+        response.content = uri
+        response.status_code = 200
+
+    return response
 
 
 def update_cv(pers_id, cv_json):

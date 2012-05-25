@@ -19,7 +19,7 @@ LayoutManager.Logo = LayoutManager.Logo || {};
         //"position": "relative",
         //"top": "10px"
       });
-      right.append($("<div>").attr("id", "login"));
+      right.append($("<div>").attr("id", "login").css({"width":"160px"}));
       var login = $("<script>").attr({
           "type": "in/Login",
           "data-onAuth": "onLinkedInAuth"
