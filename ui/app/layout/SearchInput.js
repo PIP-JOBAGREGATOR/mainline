@@ -531,9 +531,9 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
           window["theCV"] = cv;
           window["useCV"] = true;
-          for (var pr in cv) {
+          for (var pr2 in cvMapping) {
             var label = null;
-            for (var pr2 in cvMapping) {
+            for (var pr in cv) {
               if (cvMapping[pr2] == pr) {
                 label = pr2;
                 break;
