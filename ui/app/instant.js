@@ -48,16 +48,47 @@ Instant = (function() {
     function showMsg(profile, isSuccess) {
       if (isSuccess) {
         Instant().isLoggedIn = true;
-        msg = "Bine ai venit, <strong>"
-          + profile.values[0].firstName
-          + " "
-          + profile.values[0].lastName
-          + "</strong> [<a onclick='Instant().doLogout();' style='color:red'>Deconectare</a>]"
 
-        $("#login").append(msg);
-        $("#login").css({"font-size" : "15px"});
-        window.getCV();
-        window.console.log(msg);
+        var msg = "";
+        $.ajax({
+            "url" : window.hostname + "/api/profile_pic/",
+            //"async" : true,
+            "type" : "post",
+            "data" : {"content" : ""},
+            "success" : function(data, textStatus, jqXHR) {
+                if (data.length == 0) data = window.hostname + "/images/photo.jpg";
+                msg = "<div style='float:left; margin-top:20px'> <strong style='float:left'>"
+                + profile.values[0].firstName
+                + " "
+                + profile.values[0].lastName
+                + "</strong> <br/>"
+                + "&nbsp;[<a onclick='Instant().doLogout();' style='color:red;cursor:pointer'>Deconectare</a>]"
+                + "</div>"
+                + "<img src=" + data + " height='50%' style='margin-left:10px; margin-top:10px; border-style:solid; border-width:1px; border-color:white'></img>"
+                $("#login").append(msg);
+                $("#login").css({"font-size" : "15px"});
+                window.getCV();
+                window.console.log(msg);
+                window.console.log("profile pic ok");
+            },
+            "error" : function(jqXHR, textStatus, errorThrown) {
+                var d = window.hostname + "/images/photo.jpg";
+                msg = "<div style='float:left; margin-top:20px'> <strong style='float:left'>"
+                + profile.values[0].firstName
+                + " "
+                + profile.values[0].lastName
+                + "</strong> <br/>"
+                + "&nbsp;[<a onclick='Instant().doLogout();' style='color:red;cursor:ponter'>Deconectare</a>]"
+                + "</div>"
+                + "<img src=" + d + " height='50%' style='margin-left:10px; margin-top:10px; border-style:solid; border-width:1px; border-color:white'></img>"
+                $("#login").append(msg);
+                $("#login").css({"font-size" : "15px"});
+                window.getCV();
+                window.console.log(msg);
+                window.console.log("error profile pic");
+            }
+        });
+
       } else {
         msg = "Sorry, an error has occured in logging in.  Please try again.";
         window.console.log(msg);

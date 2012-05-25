@@ -61,7 +61,8 @@ var app = (function() {
                     $("#loading-animation").css("opacity", "0.0");
 
 					if (typeof(data) == "string") {
-						pageAPI.livePreviewAPI.update(JSON.parse(data));
+                       var ob = data == "" ? {} : JSON.parse(data);
+						pageAPI.livePreviewAPI.update(ob);
 					}
 					else if (typeof(data) == "object"){
 						pageAPI.livePreviewAPI.update(data);

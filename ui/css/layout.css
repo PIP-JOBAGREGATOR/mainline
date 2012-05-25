@@ -1,3 +1,7 @@
+html{
+
+	overflow : "hidden";
+}
 * {
 	border: 0px;
 	margin: 0px;
