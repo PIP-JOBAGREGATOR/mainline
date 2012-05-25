@@ -14,9 +14,12 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
 
 		// Creates a cell with a job
 		var createCell = function(cellData) {
-		  var titlu = cellData.titlu == "" ? "Fara titlu" : cellData.titlu.substr(0,40) + "...";
-          var descriere = cellData.descriere == "" ? "Jobul nu contine o descriere" : cellData.descriere.substr(0, 200) + " ...";
+		  var titlu = cellData.titlu == "" ? "Fara titlu" : cellData.titlu;
+          var descriere = cellData.descriere == "" ? "Jobul nu contine o descriere" : cellData.descriere;
           var link = cellData.link;
+          var appendtitlu = titlu.length > 40 ? " ..." : "";
+          var appenddescriere = descriere.length > 40 ? " ..." : "";
+          var appendlink = link.length > 70 ? " ..." : "";
           
           var cell = $("<div>").css({
             "width": cellWidth + "px",
@@ -79,7 +82,7 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             "padding-top" : "5px",
             "margin-bottom" : "5px",
             "text-indent": "30px",
-          }).append(titlu));
+          }).append(titlu.substr(0,40) + appendtitlu));
           right.append( $("<div>").css({
             "margin-left": "auto",
             "margin-right": "auto",
@@ -96,14 +99,14 @@ LayoutManager.SearchPage = LayoutManager.SearchPage || {};
             "height": "80px",
             "overflow": "hidden",
             "text-indent": "30px",
-          }).append(descriere))
+          }).append(descriere.substr(0,200) + appenddescriere))
             .append( $("<div>").css({
             
             }).append( $("<a>").attr({"href": link, "target": "_blank"}).click(doOnClick)
               .css({
                 "font-size" : "11pt",
                 "padding-left": "10px",
-              }).append(link.substr(0,70) + " ...")) ));
+              }).append(link.substr(0,70) + appendlink)) ));
 
           return cell[0];
         };
