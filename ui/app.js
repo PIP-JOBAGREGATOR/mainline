@@ -59,7 +59,8 @@ var app = (function() {
 						return "http://localhost/results_software_engineer.json";
 					}
 				})(),*/
-				"url": window.hostname + "/api/search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
+				//"url": window.hostname + "/api/search/"/*"http://localhost/mock.json"*//*apiURL + "search"*/,
+                "url" : "http://localhost/mock.json",
 				"async": true,
 				"type": "post",
 				"data": {"content": json},
@@ -95,7 +96,7 @@ var app = (function() {
 		$.ajax({
 		"url": window.hostname + "/api/cv/get/",
 		"async": true,
-		"type": "get",
+		"type": "post",
 		"data": {"content": ""},
 		"success": function (data, textStatus, jqXHR) {
 			if (typeof(data) == "string") {
