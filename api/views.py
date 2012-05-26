@@ -236,6 +236,7 @@ def cv_set(request):
         oauth = request.session['token']
         pers_id = get_id(oauth)
         cv_json = request.POST.get('content')
+        print cv_json
         return update_cv(pers_id, cv_json)
     else:
         response.content = 'bad request ... use POST'
