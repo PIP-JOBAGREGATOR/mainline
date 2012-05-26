@@ -35,7 +35,7 @@ var app = (function() {
               window.console.log("Cv salvat cu succes!");
             },
 	        "error": function(jqXHR, textStatus, errorThrown) {
-	          window.console.log("A crapat : " + errorThrown);
+	          window.console.log("A crapat save-ul : " + errorThrown);
 		    }
 	      });
 	    }
